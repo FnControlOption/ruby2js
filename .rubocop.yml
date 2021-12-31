@@ -3,6 +3,9 @@ inherit_from: .rubocop_todo.yml
 AllCops:
   NewCops: enable
 
+Layout/BlockAlignment:
+  EnforcedStyleAlignWith: start_of_block
+
 Layout/EndAlignment:
   EnforcedStyleAlignWith: start_of_line
 

@@ -30,15 +30,15 @@ module Ruby2JS
         args.first.children.length == 3 and nonprop[args.first.children.last]
 
       if es2015 and not collapsible and args.all? {|arg| 
-          case arg.type
-          when :pair, :hash, :class_module
-            arg.children.all? {|child| nonprop[child]}
-          when :const
-            false
-          else
-            true
-          end
-        }
+        case arg.type
+        when :pair, :hash, :class_module
+          arg.children.all? {|child| nonprop[child]}
+        when :const
+          false
+        else
+          true
+        end
+      }
         parse s(:send, s(:const, nil, :Object), :assign, target, *args)
       else
 
@@ -97,9 +97,9 @@ module Ruby2JS
               modname.children[2..-1].all? {|child| nonprop[child]}
 
               s(:begin, *modname.children[2..-1].map {|pair|
-                  s(:send, target, :[]=, s(:sym, pair.children.first),
-                    pair.updated(:defm, [nil, *pair.children[1..-1]]))
-                })
+                s(:send, target, :[]=, s(:sym, pair.children.first),
+                  pair.updated(:defm, [nil, *pair.children[1..-1]]))
+              })
 
             elsif modname.type == :lvar and not es2015
               s(:for, s(:lvasgn, :$_), modname,
