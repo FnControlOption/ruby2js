@@ -128,7 +128,7 @@ module Ruby2JS
               if @require_recursive
                 block = node.children
                 while block.length == 1 and block.first.type == :begin
-                   block = block.first.children
+                  block = block.first.children
                 end
 
                 block.each do |child|

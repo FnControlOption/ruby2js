@@ -427,7 +427,7 @@ describe Ruby2JS::Filter::React do
 
     it "should create temporary variables when blocks are involved" do
       to_js( 'class Foo<React; def f; foo {@a=1}; b=@a; end; end' ).
-        must_include 'foo(function() {self.setState({a: $a = 1})}); '
+        must_include 'foo(function() {self.setState({a: $a = 1})}); ' +
           'var b = $a; return this.setState({a: $a})'
     end
 

@@ -266,25 +266,25 @@ module Ruby2JS
 
         elsif [:start_with?, :end_with?].include? method and args.length == 1
           if es2015
-	    if method == :start_with?
+            if method == :start_with?
               process S(:send, target, :startsWith, *args)
-            else
-              process S(:send, target, :endsWith, *args)
+                  else
+                    process S(:send, target, :endsWith, *args)
             end
           else
-	    if args.first.type == :str
-	      length = S(:int, args.first.children.first.length)
-	    else
-	      length = S(:attr, *args, :length)
-	    end
+            if args.first.type == :str
+              length = S(:int, args.first.children.first.length)
+            else
+              length = S(:attr, *args, :length)
+            end
 
-	    if method == :start_with?
-	      process S(:send, S(:send, target, :substring, s(:int, 0),
-		length), :==, *args)
-	    else
-	      process S(:send, S(:send, target, :slice,
-		S(:send, length, :-@)), :==, *args)
-	    end
+            if method == :start_with?
+              process S(:send, S(:send, target, :substring, s(:int, 0),
+          length), :==, *args)
+            else
+              process S(:send, S(:send, target, :slice,
+          S(:send, length, :-@)), :==, *args)
+            end
           end
 
         elsif method == :clear and args.length == 0 and node.is_method?
@@ -636,9 +636,9 @@ module Ruby2JS
             s(:autoreturn, *process_all(node.children[2..-1]))]
 
         elsif method == :index and call.children.length == 2
-            call = call.updated nil, [call.children.first, :findIndex]
-            node.updated nil, [process(call), process(node.children[1]),
-              s(:autoreturn, *process_all(node.children[2..-1]))]
+          call = call.updated nil, [call.children.first, :findIndex]
+          node.updated nil, [process(call), process(node.children[1]),
+            s(:autoreturn, *process_all(node.children[2..-1]))]
 
         elsif method == :map and call.children.length == 2
           node.updated nil, [process(call), process(node.children[1]),

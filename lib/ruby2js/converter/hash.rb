@@ -152,19 +152,19 @@ module Ruby2JS
                 @prop = left.children.first.to_s
                 parse right
               else
-		if not [:str, :sym].include? left.type and es2015
-		  put '['
-		  parse left
-		  put ']'
-		elsif \
-		  left.children.first.to_s =~ /\A[a-zA-Z_$][a-zA-Z_$0-9]*\z/
-		then
-		  put left.children.first
-		else
-		  parse left
-		end
+                if not [:str, :sym].include? left.type and es2015
+                  put '['
+                  parse left
+                  put ']'
+                elsif \
+                  left.children.first.to_s =~ /\A[a-zA-Z_$][a-zA-Z_$0-9]*\z/
+                then
+                  put left.children.first
+                else
+                  parse left
+                end
 
-		put ': '; parse right
+                put ': '; parse right
               end
             end
 

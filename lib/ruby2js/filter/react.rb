@@ -1491,21 +1491,21 @@ module Ruby2JS
       end
 
       def on_xstr(node)
-       loc = node.loc
-       return super unless loc
-       source = loc.begin.source_buffer.source
-       source = source[loc.begin.end_pos...loc.end.begin_pos].strip
-       return super unless @reactClass or source.start_with? '<'
-       source = Ruby2JS.jsx2_rb(source)
-       ast =  Ruby2JS.parse(source).first
-       ast = s(:block, s(:send, nil, :_), s(:args), ast) if ast.type == :begin
+        loc = node.loc
+        return super unless loc
+        source = loc.begin.source_buffer.source
+        source = source[loc.begin.end_pos...loc.end.begin_pos].strip
+        return super unless @reactClass or source.start_with? '<'
+        source = Ruby2JS.jsx2_rb(source)
+        ast =  Ruby2JS.parse(source).first
+        ast = s(:block, s(:send, nil, :_), s(:args), ast) if ast.type == :begin
 
-       begin
-         react, @react = @react, @react || :react
-         process ast
-       ensure
-         @react = react
-       end
+        begin
+          react, @react = @react, @react || :react
+          process ast
+        ensure
+          @react = react
+        end
       end
     end
 

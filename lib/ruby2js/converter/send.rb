@@ -415,8 +415,8 @@ module Ruby2JS
     end
 
     handle :splat do |expr|
-       put '...'
-       parse expr
+      put '...'
+      parse expr
     end
 
     # do string concatenation when possible

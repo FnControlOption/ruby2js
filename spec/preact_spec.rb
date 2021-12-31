@@ -461,7 +461,7 @@ describe 'Ruby2JS::Filter::Preact' do
 
     it "should create temporary variables when blocks are involved" do
       to_js( 'class Foo<Preact::Component; def f; foo {@a=1}; b=@a; end; end' ).
-        must_include 'foo(() => (this.setState({a: $a = 1}))); '
+        must_include 'foo(() => (this.setState({a: $a = 1}))); ' +
           'let b = $a; return this.setState({a: $a})'
     end
 

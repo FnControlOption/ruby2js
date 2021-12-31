@@ -43,21 +43,21 @@ module Ruby2JS
       when Symbol
         parse s(:sym, value)
       else
-	value = value.as_json if value.respond_to?(:as_json)
+        value = value.as_json if value.respond_to?(:as_json)
 
         if value.respond_to?(:to_hash) and Hash === value.to_hash
-	  parse s(:hostvalue, value.to_hash)
+          parse s(:hostvalue, value.to_hash)
         elsif value.respond_to?(:to_ary) and Array === value.to_ary
-	  parse s(:hostvalue, value.to_ary)
-	elsif value.respond_to?(:to_str) and String === value.to_str
-	  parse s(:str, value.to_str)
-	elsif value.respond_to?(:to_int) and Integer === value.to_int
-	  parse s(:int, value.to_int)
-	elsif value.respond_to?(:to_sym) and Symbol === value.to_sym
-	  parse s(:sym, value.to_sym)
-	else
+          parse s(:hostvalue, value.to_ary)
+        elsif value.respond_to?(:to_str) and String === value.to_str
+          parse s(:str, value.to_str)
+        elsif value.respond_to?(:to_int) and Integer === value.to_int
+          parse s(:int, value.to_int)
+        elsif value.respond_to?(:to_sym) and Symbol === value.to_sym
+          parse s(:sym, value.to_sym)
+        else
           parse s(:str, value.inspect)
-	end
+        end
       end
     end
   end
