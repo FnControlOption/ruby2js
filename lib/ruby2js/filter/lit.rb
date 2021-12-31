@@ -248,16 +248,16 @@ module Ruby2JS
             next if prop.to_s.start_with?("@_")
 
             @le_props[prop] = case child.children.last.type
-              when :str, :dstr
-                :String
-              when :array
-                :Array
-              when :int, :float
-                :Number
-              when :true, :false
-                :Boolean
-              else
-                @le_props[prop] || :Object
+            when :str, :dstr
+              :String
+            when :array
+              :Array
+            when :int, :float
+              :Number
+            when :true, :false
+              :Boolean
+            else
+              @le_props[prop] || :Object
             end
           else
             le_walk(child)
