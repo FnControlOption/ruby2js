@@ -1,8 +1,11 @@
 require "bundler/gem_tasks"
 require "rake/testtask"
+require "rubocop/rake_task"
 require "bundler"
 
 Bundler.setup
+
+RuboCop::RakeTask.new
 
 Rake::TestTask.new do |t|
   t.libs << "spec"
@@ -10,7 +13,7 @@ Rake::TestTask.new do |t|
   t.verbose = true
 end
 
-task :default => :test
+task :default => [:rubocop, :test]
 
 namespace :demo do
   task :build do

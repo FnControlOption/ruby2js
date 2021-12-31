@@ -26,6 +26,10 @@ jobs:
     - name: Run tests
       run: bundle exec rake test
 
+    - if: ${{ matrix.ruby >= 2.5 }}
+      name: Run RuboCop
+      run: bundle exec rake rubocop
+
   package-test:
     runs-on: ubuntu-latest
 

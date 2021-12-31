@@ -7,6 +7,9 @@ group :development, :test do
   gem 'rake'
   gem 'execjs'
   gem 'nokogiri'
+  gem 'rubocop'
+  gem 'rubocop-minitest'
+  gem 'rubocop-rake'
 end
 
 group :test do
