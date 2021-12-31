@@ -69,7 +69,7 @@ module Ruby2JS
             sym = :"#{m.children.first.to_s[0..-2]}"
             s(:prop, s(:attr, name, :prototype), sym =>
                 {enumerable: s(:true), configurable: s(:true),
-                set: s(:defm, nil, *m.children[1..-1])})
+                 set: s(:defm, nil, *m.children[1..-1])})
           else
 
             if not m.is_method?
@@ -78,8 +78,8 @@ module Ruby2JS
               # property getter
               s(:prop, s(:attr, name, :prototype), m.children.first =>
                   {enumerable: s(:true), configurable: s(:true),
-                  get: s(:defm, nil, m.children[1],
-                    m.updated(:autoreturn, m.children[2..-1]))})
+                   get: s(:defm, nil, m.children[1],
+                     m.updated(:autoreturn, m.children[2..-1]))})
             else
               visible[m.children[0]] = s(:autobind, s(:self))
 
@@ -95,7 +95,7 @@ module Ruby2JS
             # class property setter
             s(:prop, name, m.children[1].to_s[0..-2] =>
                 {enumerable: s(:true), configurable: s(:true),
-                set: s(:def, nil, *m.children[2..-1])})
+                 set: s(:def, nil, *m.children[2..-1])})
           elsif m.children[2].children.length == 0 and
             m.children[1] !~ /!/ and m.loc and m.loc.name and
             m.loc.name.source_buffer.source[m.loc.name.end_pos] != '('
@@ -103,8 +103,8 @@ module Ruby2JS
             # class property getter
             s(:prop, name, m.children[1].to_s =>
                 {enumerable: s(:true), configurable: s(:true),
-                get: s(:block, s(:send, nil, :proc), m.children[2],
-                  m.updated(:autoreturn, m.children[3..-1]))})
+                 get: s(:block, s(:send, nil, :proc), m.children[2],
+                   m.updated(:autoreturn, m.children[3..-1]))})
           else
             # class method definition: add to prototype
             s(:prototype, s(:send, name, "#{m.children[1]}=",
@@ -118,10 +118,10 @@ module Ruby2JS
               visible[var] = s(:self)
               s(:prop, s(:attr, name, :prototype), var =>
                   {enumerable: s(:true), configurable: s(:true),
-                  get: s(:block, s(:send, nil, :proc), s(:args), 
-                    s(:return, s(:ivar, :"@#{var}"))),
-                  set: s(:block, s(:send, nil, :proc), s(:args, s(:arg, var)), 
-                    s(:ivasgn, :"@#{var}", s(:lvar, var)))})
+                   get: s(:block, s(:send, nil, :proc), s(:args), 
+                     s(:return, s(:ivar, :"@#{var}"))),
+                   set: s(:block, s(:send, nil, :proc), s(:args, s(:arg, var)), 
+                     s(:ivasgn, :"@#{var}", s(:lvar, var)))})
             end
           elsif m.children[1] == :attr_reader
             m.children[2..-1].map do |child_sym|
@@ -130,8 +130,8 @@ module Ruby2JS
               s(:prop, s(:attr, name, :prototype), var =>
                   {get: s(:block, s(:send, nil, :proc), s(:args), 
                     s(:return, s(:ivar, :"@#{var}"))),
-                  enumerable: s(:true),
-                  configurable: s(:true)})
+                   enumerable: s(:true),
+                   configurable: s(:true)})
             end
           elsif m.children[1] == :attr_writer
             m.children[2..-1].map do |child_sym|
@@ -140,8 +140,8 @@ module Ruby2JS
               s(:prop, s(:attr, name, :prototype), var =>
                   {set: s(:block, s(:send, nil, :proc), s(:args, s(:arg, var)), 
                     s(:ivasgn, :"@#{var}", s(:lvar, var))),
-                  enumerable: s(:true),
-                  configurable: s(:true)})
+                   enumerable: s(:true),
+                   configurable: s(:true)})
             end
           elsif m.children[1] == :include
             s(:send, s(:block, s(:send, nil, :lambda), s(:args),

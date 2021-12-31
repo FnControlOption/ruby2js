@@ -22,13 +22,13 @@ module Ruby2JS
       if not @ast.is_method? or @ast.type == :defp
         node = s(:prop, target, method.to_s =>
           {enumerable: s(:true), configurable: s(:true),
-          get: s(:block, s(:send, nil, :proc), args,
-            s(:autoreturn, body))})
+           get: s(:block, s(:send, nil, :proc), args,
+             s(:autoreturn, body))})
       elsif method =~ /=$/
         node = s(:prop, target, method.to_s.sub('=', '') =>
           {enumerable: s(:true), configurable: s(:true),
-          set: s(:block, s(:send, nil, :proc), args,
-            body)})
+           set: s(:block, s(:send, nil, :proc), args,
+             body)})
       else
         node = s(:send, target, "#{method}=", s(:def, nil, args, body))
       end
