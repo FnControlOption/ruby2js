@@ -91,7 +91,7 @@ module Ruby2JS
               put "} else " if not first
               first = false
 
-              put  'if ('
+              put 'if ('
               exceptions.children.each_with_index do |exception, index|
                 put ' || ' unless index == 0
                 if exception == s(:const, nil, :String)

@@ -77,7 +77,7 @@ module Ruby2JS
 
             nodes[values] = nodes[values].updated(nil,
               [*nodes[values].children[0..-2], s(:hash,
-              *le_props.map{|name, value| s(:pair, name, value)})])
+              *le_props.map {|name, value| s(:pair, name, value)})])
           end
         end
 
@@ -144,7 +144,7 @@ module Ruby2JS
             statements = statements.first.children 
           end
 
-          unless statements.any? {|statement| %i[super zuper].include?  statement.type}
+          unless statements.any? {|statement| %i[super zuper].include? statement.type}
             nodes[initialize] = nodes[initialize].updated(nil,
             [*nodes[initialize].children[0..1],
             s(:begin, s(:zsuper), *statements)])

@@ -13,7 +13,7 @@ module Ruby2JS
         return parse s(:attr, receiver, "#{name}=", value) if receiver
       end
 
-      state  = @state
+      state = @state
       begin
         if value and value.type == :lvasgn and @state == :statement
           undecls = []

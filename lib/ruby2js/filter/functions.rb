@@ -495,7 +495,7 @@ module Ruby2JS
             process node.updated(nil, [target, :trimEnd, *args])
           else
             node.updated(nil, [process(target), :replace,
-              s(:regexp, s(:str, '\s+\z') , s(:regopt)), s(:str, '')])
+              s(:regexp, s(:str, '\s+\z'), s(:regopt)), s(:str, '')])
           end
 
         elsif method==:lstrip and args.length == 0
@@ -503,7 +503,7 @@ module Ruby2JS
             process s(:send, target, :trimStart)
           else
             node.updated(nil, [process(target), :replace,
-              s(:regexp, s(:str, '\A\s+') , s(:regopt)), s(:str, '')])
+              s(:regexp, s(:str, '\A\s+'), s(:regopt)), s(:str, '')])
           end
 
         elsif method == :index and node.is_method?

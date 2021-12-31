@@ -71,7 +71,7 @@ options.keys.each do |key|
 end
 
 # Serialize options as JavaScript, matching original indentation.
-replacement =  Ruby2JS.convert(merged.inspect + "\n").to_s.
+replacement = Ruby2JS.convert(merged.inspect + "\n").to_s.
   gsub(/^/, match[1]).strip
 
 # Update configuration

@@ -87,7 +87,7 @@ module Ruby2JS
     end
 
     def operator_index op
-      OPERATORS.index( OPERATORS.find{ |el| el.include? op } ) || -1
+      OPERATORS.index( OPERATORS.find { |el| el.include? op } ) || -1
     end
     
     # define a new scope; primarily determines what variables are visible and deals with hoisting of

@@ -88,7 +88,7 @@ if ARGV.include? '-w' or ARGV.include? '--watch'
   config = eval config
   filters = config.delete(:filters)
   eslevel = config.delete(:eslevel)
-  opts = config.map{|name, value| "--#{name}=#{value}"}.join(' ')
+  opts = config.map {|name, value| "--#{name}=#{value}"}.join(' ')
   opts += " --es#{eslevel}" if eslevel
   opts += " --filter=#{filters.join(',')}" if filters
 

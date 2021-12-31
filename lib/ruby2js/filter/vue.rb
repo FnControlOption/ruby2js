@@ -371,7 +371,7 @@ module Ruby2JS
 
         # append class methods (if any)
         class_methods = body.select do |statement|
-          statement.type == :defs  and statement.children[0] == s(:self)
+          statement.type == :defs and statement.children[0] == s(:self)
         end
 
         unless class_methods.empty? and @vue_reactive.empty?
@@ -380,7 +380,7 @@ module Ruby2JS
               if not method.children[1].to_s.end_with? '='
                 # class method
                 s(:send, s(:const, nil, cname), "#{method.children[1]}=",
-                  s(:block, s(:send , nil, :proc), method.children[2],
+                  s(:block, s(:send, nil, :proc), method.children[2],
                    *process_all(method.children[3..-1])))
               else
                 getter = class_methods.find do |other_method|

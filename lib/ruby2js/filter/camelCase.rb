@@ -70,7 +70,7 @@ module Ruby2JS
         return node if node.type != node_type
 
         if node.children[0] =~ /_.*[?!\w]$/ and !ALLOWLIST.include?(node.children[0].to_s)
-          S(node_type , camelCase(node.children[0]), *node.children[1..-1])
+          S(node_type, camelCase(node.children[0]), *node.children[1..-1])
         else
           node
         end
@@ -137,7 +137,7 @@ module Ruby2JS
         return node if node.type != :defs
 
         if node.children[1] =~ /_.*[?!\w]$/
-          S(:defs , node.children[0],
+          S(:defs, node.children[0],
             camelCase(node.children[1]), *node.children[2..-1])
         else
           node

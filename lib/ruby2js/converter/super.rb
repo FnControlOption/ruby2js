@@ -43,7 +43,7 @@ module Ruby2JS
 
         # what to call
         if method.type != :constructor
-          puts  ".prototype.#{ method.children[1].to_s.chomp('=') }"
+          puts ".prototype.#{ method.children[1].to_s.chomp('=') }"
         end
 
         if args

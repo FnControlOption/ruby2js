@@ -13,7 +13,7 @@ module Ruby2JS
 
         if [:clone, :shuffle, :size, :compact, :flatten, :invert, :values,
           :uniq].include? method
-          if node.is_method?  and node.children.length == 2
+          if node.is_method? and node.children.length == 2
             process S(:send, s(:lvar, :_), method, node.children[0])
           else
             super
@@ -24,10 +24,10 @@ module Ruby2JS
           process S(:send, s(:lvar, :_), :chunk, node.children[0], node.children[2])
         elsif [:min, :max].include? method and node.children.length == 2
           process S(:send, s(:lvar, :_), method, node.children[0])
-        elsif method == :sample and  node.children.length <= 3
+        elsif method == :sample and node.children.length <= 3
           process S(:send, s(:lvar, :_), :sample, node.children[0],
             *node.children[2..-1])
-        elsif method == :has_key? and  node.children.length == 3
+        elsif method == :has_key? and node.children.length == 3
           process S(:send, s(:lvar, :_), :has, node.children[0],
             node.children[2])
         elsif method == :sort and  node.children.length == 2

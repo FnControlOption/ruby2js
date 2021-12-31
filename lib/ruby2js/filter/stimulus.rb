@@ -92,7 +92,7 @@ module Ruby2JS
 
             nodes[values] = nodes[values].updated(nil,
               [*nodes[values].children[0..1], s(:hash,
-              *stim_values.map{|name, value| s(:pair, name, value)})])
+              *stim_values.map {|name, value| s(:pair, name, value)})])
           end
         end
 

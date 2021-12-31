@@ -93,7 +93,7 @@ module Ruby2JS
           then
             prepend_list << IMPORT_FS
 
-            S(:begin, *args[1..-1].map{|file|
+            S(:begin, *args[1..-1].map {|file|
               S(:send, s(:attr, nil, :fs), method.to_s + 'Sync', process(file),
                 s(:octal, *args.first.children))
             })
@@ -104,7 +104,7 @@ module Ruby2JS
           then
             prepend_list << IMPORT_FS
 
-            S(:begin, *args[2..-1].map{|file|
+            S(:begin, *args[2..-1].map {|file|
               s(:send, s(:attr, nil, :fs), method.to_s + 'Sync', process(file),
                 *process_all(args[0..1]))
             })
@@ -128,7 +128,7 @@ module Ruby2JS
 
           elsif method == :unlink and args.length == 1
             prepend_list << IMPORT_FS
-            S(:begin, *args.map{|file|
+            S(:begin, *args.map {|file|
               S(:send, s(:attr, nil, :fs), :unlinkSync, process(file))
             })
 

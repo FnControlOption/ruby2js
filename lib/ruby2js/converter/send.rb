@@ -96,7 +96,7 @@ module Ruby2JS
             # async def o.m(x) {...}
             return parse args.first.updated :asyncs
 
-          elsif args.first.type == :send  and 
+          elsif args.first.type == :send and 
             args.first.children.first.type == :block and 
             args.first.children.last == :[]
 
