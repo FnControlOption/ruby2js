@@ -72,7 +72,7 @@ class RubyController < DemoController
   def contents=(script)
     if @rubyEditor
       @rubyEditor.dispatch(
-         changes: {from: 0, to: @rubyEditor.state.doc.length, insert: script}
+        changes: {from: 0, to: @rubyEditor.state.doc.length, insert: script}
       )
     else
       textarea = element.querySelector('textarea.ruby')

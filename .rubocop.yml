@@ -23,3 +23,6 @@ Layout/ParameterAlignment:
 
 Layout/CaseIndentation:
   EnforcedStyle: end
+
+Layout/FirstArgumentIndentation:
+  EnforcedStyle: consistent
