@@ -70,7 +70,7 @@ module Ruby2JS
           elsif nodes[values].children.last.type == :hash
             le_props = @le_props.map {|name, type| 
               [s(:sym, name.to_s[1..-1].to_sym), 
-              s(:hash, s(:pair, s(:sym, :type), s(:const, nil, type || :String)))]
+                s(:hash, s(:pair, s(:sym, :type), s(:const, nil, type || :String)))]
             }.to_h.merge(
               nodes[values].children.last.children.map {|pair| pair.children}.to_h
             )
@@ -88,7 +88,7 @@ module Ruby2JS
         if customElement and nodes[customElement].children.length == 3
           nodes[customElement] = nodes[customElement].updated(nil,
             [s(:attr, nil, :customElements), :define,
-            nodes[customElement].children.last, class_name])
+              nodes[customElement].children.last, class_name])
         end
 
         # render of a string is converted to a taglit :html
@@ -98,7 +98,7 @@ module Ruby2JS
         if render and %i[str dstr begin if block].include?(nodes[render].children[2]&.type)
           nodes[render] = nodes[render].updated(:deff,
             [*nodes[render].children[0..1],
-            s(:autoreturn, html_wrap(nodes[render].children[2]))])
+              s(:autoreturn, html_wrap(nodes[render].children[2]))])
         end
 
         # self.styles returning string is converted to a taglit :css
@@ -128,8 +128,8 @@ module Ruby2JS
           else
             nodes[styles] = nodes[styles].updated(:defp,
               [s(:self), :styles, s(:args),
-              s(:autoreturn, s(:taglit, s(:sym, :css),
-                s(:dstr, *children)))])
+                s(:autoreturn, s(:taglit, s(:sym, :css),
+                  s(:dstr, *children)))])
           end
         end
 
@@ -147,7 +147,7 @@ module Ruby2JS
           unless statements.any? {|statement| %i[super zuper].include? statement.type}
             nodes[initialize] = nodes[initialize].updated(nil,
               [*nodes[initialize].children[0..1],
-              s(:begin, s(:zsuper), *statements)])
+                s(:begin, s(:zsuper), *statements)])
           end
         end
 

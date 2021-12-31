@@ -67,7 +67,7 @@ describe Ruby2JS::Filter::JSX do
       it "should handle mixed text" do
         to_rb( 'before <p> line 1 <br/> line 2 </p> after' ).must_equal(
           ['_("before")', '_p do', '_("line 1")', '_br',
-          '_("line 2")', 'end', '_("after")'].join("\n"))
+            '_("line 2")', 'end', '_("after")'].join("\n"))
       end
     end
 

@@ -11,7 +11,7 @@ module Ruby2JS
 
       if es2017 and call.children.last == s(:send, nil, :async)
         return parse call.updated(nil, [*call.children[0..-2],
-        s(:send, nil, :async, s(:block, s(:send, nil, :proc), args, block))])
+          s(:send, nil, :async, s(:block, s(:send, nil, :proc), args, block))])
       end
 
       if \

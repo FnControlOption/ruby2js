@@ -187,7 +187,7 @@ module Ruby2JS
           if innerclass_name.children.first
             innerclass_name = innerclass_name.updated(nil,
               [s(:attr, name, innerclass_name.children[0].children.last),
-              innerclass_name.children[1]])
+                innerclass_name.children[1]])
           else
             innerclass_name = innerclass_name.updated(nil,
               [name, innerclass_name.children[1]])
@@ -303,7 +303,7 @@ module Ruby2JS
 
           pairs = body[start...start + methods].map do |node|
             node.updated(:pair, [
-               s(:sym, node.children[1].to_s[0..-2]), node.children[2]])
+              s(:sym, node.children[1].to_s[0..-2]), node.children[2]])
           end
 
           body[start...start + methods] =

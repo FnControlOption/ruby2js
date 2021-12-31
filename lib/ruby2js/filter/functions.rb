@@ -456,7 +456,7 @@ module Ruby2JS
             if parent == :Array
               S(:send, s(:const, nil, :Array), :isArray, target)
             elsif [:Arguments, :Boolean, :Date, :Error, :Function, :Number,
-                :Object, :RegExp, :String].include? parent
+              :Object, :RegExp, :String].include? parent
               S(:send, s(:send, s(:attr, s(:attr, s(:const, nil, Object),
                 :prototype), :toString), :call, target), :===,
                 s(:str, "[object #{parent.to_s}]"))
@@ -719,16 +719,16 @@ module Ruby2JS
               process node.updated(:for_of,
                 [s(:mlhs, *node.children[1].children.map {|child|
                   s(:lvasgn, child.children[0])}),
-                node.children[0].children[0], node.children[2]])
+                  node.children[0].children[0], node.children[2]])
             elsif node.children[1].children[0].type == :mlhs
               process node.updated(:for_of,
                 [s(:mlhs, *node.children[1].children[0].children.map {|child|
                   s(:lvasgn, child.children[0])}),
-                node.children[0].children[0], node.children[2]])
+                  node.children[0].children[0], node.children[2]])
             else
               process node.updated(:for_of,
                 [s(:lvasgn, node.children[1].children[0].children[0]),
-                node.children[0].children[0], node.children[2]])
+                  node.children[0].children[0], node.children[2]])
             end
           else
             process node.updated(nil, [s(:send, call.children[0],
@@ -742,7 +742,7 @@ module Ruby2JS
         then
           process node.updated(:for,
             [s(:lvasgn, node.children[1].children[0].children[0]),
-            node.children[0].children[0], node.children[2]])
+              node.children[0].children[0], node.children[2]])
 
         elsif es2015 and method == :inject
           process node.updated(:send, [call.children[0], :reduce,
@@ -754,7 +754,7 @@ module Ruby2JS
             # Object.entries(a).forEach(([key, value]) => {})
             process node.updated(nil, [s(:send, s(:send,
               s(:const, nil, :Object), :entries, call.children[0]), :each),
-            node.children[1], node.children[2]])
+              node.children[1], node.children[2]])
           else
             # for (key in a). {var value = a[key]; ...}
             process node.updated(:for, [s(:lvasgn,

@@ -15,7 +15,7 @@ describe Ruby2JS::Filter::React do
   def to_js6(string)
     _(Ruby2JS.convert(string, eslevel: 2015,
       filters: [Ruby2JS::Filter::React, Ruby2JS::Filter::Functions,
-      Ruby2JS::Filter::JSX]).to_s)
+        Ruby2JS::Filter::JSX]).to_s)
   end
   
   def to_esm(string)

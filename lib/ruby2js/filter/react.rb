@@ -66,24 +66,24 @@ module Ruby2JS
 
       # list of react attributes that require special processing
       ReactAttrs = %w(acceptCharset accessKey allowFullScreen
-      allowTransparency autoCapitalize autoComplete autoCorrect autoFocus
-      autoPlay autoSave cellPadding cellSpacing charSet classID className
-      clipPath colSpan contentEditable contextMenu crossOrigin
-      dangerouslySetInnerHTML dateTime encType fillOpacity fontFamily fontSize
-      formAction formEncType formMethod formNoValidate formTarget frameBorder
-      gradientTransform gradientUnits hrefLang htmlFor httpEquiv inputMode
-      itemID itemProp itemRef itemScope itemType keyParams keyType
-      marginHeight marginWidth markerEnd markerMid markerStart maxLength
-      mediaGroup noValidate patternContentUnits patternUnits
-      preserveAspectRatio radioGroup readOnly rowSpan spellCheck spreadMethod
-      srcDoc srcSet stopColor stopOpacity strokeDasharray strokeLinecap
-      strokeOpacity strokeWidth tabIndex textAnchor useMap viewBox
-      xlinkActuate xlinkArcrole xlinkHref xlinkRole xlinkShow xlinkTitle
-      xlinkType xmlBase xmlLang xmlSpace)
+        allowTransparency autoCapitalize autoComplete autoCorrect autoFocus
+        autoPlay autoSave cellPadding cellSpacing charSet classID className
+        clipPath colSpan contentEditable contextMenu crossOrigin
+        dangerouslySetInnerHTML dateTime encType fillOpacity fontFamily fontSize
+        formAction formEncType formMethod formNoValidate formTarget frameBorder
+        gradientTransform gradientUnits hrefLang htmlFor httpEquiv inputMode
+        itemID itemProp itemRef itemScope itemType keyParams keyType
+        marginHeight marginWidth markerEnd markerMid markerStart maxLength
+        mediaGroup noValidate patternContentUnits patternUnits
+        preserveAspectRatio radioGroup readOnly rowSpan spellCheck spreadMethod
+        srcDoc srcSet stopColor stopOpacity strokeDasharray strokeLinecap
+        strokeOpacity strokeWidth tabIndex textAnchor useMap viewBox
+        xlinkActuate xlinkArcrole xlinkHref xlinkRole xlinkShow xlinkTitle
+        xlinkType xmlBase xmlLang xmlSpace)
 
       ReactLifecycle = %w(render componentDidMount shouldComponentUpdate
-      getShapshotBeforeUpdate componentDidUpdate componentWillUnmount
-      componentDidCatch componentWillReceiveProps)
+        getShapshotBeforeUpdate componentDidUpdate componentWillUnmount
+        componentDidCatch componentWillReceiveProps)
 
       ReactAttrMap = Hash[ReactAttrs.map {|name| [name.downcase, name]}]
       ReactAttrMap['for'] = 'htmlFor'

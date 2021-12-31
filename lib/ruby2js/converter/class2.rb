@@ -315,7 +315,7 @@ module Ruby2JS
             if innerclass_name.children.first
               innerclass_name = innerclass_name.updated(nil,
                 [s(:attr, innerclass_name.children[0], name),
-                 innerclass_name.children[1]])
+                  innerclass_name.children[1]])
             else
               innerclass_name = innerclass_name.updated(nil,
                 [name, innerclass_name.children[1]])

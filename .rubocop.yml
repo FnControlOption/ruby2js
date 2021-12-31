@@ -11,3 +11,6 @@ Layout/ExtraSpacing:
 
 Layout/ArgumentAlignment:
   EnforcedStyle: with_fixed_indentation
+
+Layout/ArrayAlignment:
+  EnforcedStyle: with_fixed_indentation

@@ -15,7 +15,7 @@ describe 'Ruby2JS::Filter::Preact' do
   def to_jsx(string)
     _(Ruby2JS.convert(string, eslevel: 2015, scope: self,
       filters: [Ruby2JS::Filter::React, Ruby2JS::Filter::Functions,
-      Ruby2JS::Filter::JSX]).to_s)
+        Ruby2JS::Filter::JSX]).to_s)
   end
   
   def to_esm(string)
