@@ -656,7 +656,7 @@ else
       60.times do
         sleep 0.5
         begin
-          status = Net::HTTP.get_response('0.0.0.0','/',port).code
+          status = Net::HTTP.get_response('0.0.0.0', '/', port).code
           break if %(200 404 500).include? status
         rescue Errno::ECONNREFUSED, Errno::ETIMEDOUT
         end

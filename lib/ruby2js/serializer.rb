@@ -31,7 +31,7 @@ module Ruby2JS
       if empty?
         ''
       elsif ['case ', 'default:'].include? self[0]
-        ' ' * ([0,indent-2].max) + join
+        ' ' * ([0, indent - 2].max) + join
       elsif indent > 0
         ' ' * indent + join
       else
@@ -116,31 +116,31 @@ module Ruby2JS
       return if @indent == 0
       reindent @lines
 
-      (@lines.length-3).downto(0) do |i|
+      (@lines.length - 3).downto(0) do |i|
         if \
           @lines[i].length == 0
         then
           @lines.delete i
         elsif \
-          @lines[i+1].comment? and not @lines[i].comment? and
-          @lines[i].indent == @lines[i+1].indent
+          @lines[i + 1].comment? and not @lines[i].comment? and
+          @lines[i].indent == @lines[i + 1].indent
         then
           # before a comment
-          @lines.insert i+1, Line.new
+          @lines.insert i + 1, Line.new
         elsif \
-          @lines[i].indent == @lines[i+1].indent and 
-          @lines[i+1].indent < @lines[i+2].indent and
+          @lines[i].indent == @lines[i + 1].indent and 
+          @lines[i + 1].indent < @lines[i + 2].indent and
           not @lines[i].comment?
         then
           # start of indented block
-          @lines.insert i+1, Line.new
+          @lines.insert i + 1, Line.new
         elsif \
-          @lines[i].indent > @lines[i+1].indent and 
-          @lines[i+1].indent == @lines[i+2].indent and
-          not @lines[i+2].empty?
+          @lines[i].indent > @lines[i + 1].indent and 
+          @lines[i + 1].indent == @lines[i + 2].indent and
+          not @lines[i + 2].empty?
         then
           # end of indented block
-          @lines.insert i+2, Line.new
+          @lines.insert i + 2, Line.new
         end
       end
     end
@@ -190,7 +190,7 @@ module Ruby2JS
 
     # current location: [line number, token number]
     def output_location
-      [@lines.length-1, @line.length]
+      [@lines.length - 1, @line.length]
     end
 
     # insert a line into the output
@@ -206,7 +206,7 @@ module Ruby2JS
     def capture(&block)
       mark = output_location
       block.call
-      lines = @lines.slice!(mark.first+1..-1)
+      lines = @lines.slice!(mark.first + 1..-1)
       @line = @lines.last
 
       if lines.empty?
@@ -225,12 +225,12 @@ module Ruby2JS
       yield
 
       if \
-        @lines.length > mark.first+1 or
-        @lines[mark.first-1].join.length + @line.join.length >= @width
+        @lines.length > mark.first + 1 or
+        @lines[mark.first - 1].join.length + @line.join.length >= @width
       then
         sput close
       else
-        @line = @lines[mark.first-1]
+        @line = @lines[mark.first - 1]
         @line[-1..-1] = @lines.pop
       end
     end
@@ -270,13 +270,13 @@ module Ruby2JS
         # full collapse
         @lines[mark.first..-1] = [Line.new(*work)]
         @line = @lines.last
-      elsif split and split[0] < @width-10
-        if slice[split[2]].indent < slice[split[2]+1].indent
+      elsif split and split[0] < @width - 10
+        if slice[split[2]].indent < slice[split[2] + 1].indent
           # collapse all but the last argument (typically a hash or function)
           close = slice.pop
           slice[-1].push(*close)
-          @lines[mark.first] = Line.new(*work[0..split[1]-1])
-          @lines[mark.first+1..-1] = slice[split[2]+1..-1]
+          @lines[mark.first] = Line.new(*work[0..split[1] - 1])
+          @lines[mark.first + 1..-1] = slice[split[2] + 1..-1]
           @line = @lines.last
         end
       end
@@ -294,7 +294,7 @@ module Ruby2JS
     end
 
     def +(value)
-      to_s+value
+      to_s + value
     end
 
     BASE64 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
@@ -311,7 +311,7 @@ module Ruby2JS
           @mappings += ',' unless @mappings == ''
         end
 
-        diffs = mark.zip(@mark).map {|a,b| a-b}
+        diffs = mark.zip(@mark).map {|a, b| a - b}
       end
 
       while @mark[0] < mark[0]

@@ -21,8 +21,8 @@ module Ruby2JS
       end
 
       if \
-        [:+, :-].include?(op) and value.type==:int and 
-        (value.children==[1] or value.children==[-1])
+        [:+, :-].include?(op) and value.type == :int and 
+        (value.children == [1] or value.children == [-1])
       then
         if value.children.first == -1
           op = (op == :+ ? :- : :+)

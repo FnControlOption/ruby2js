@@ -36,7 +36,7 @@ module Ruby2JS
               s(:send, s(:attr, 
                 s(:attr, s(:const, nil, :Array), :prototype), :slice),
                 :call, s(:lvar, :arguments),
-                s(:int, args.children.length-1)))
+                s(:int, args.children.length - 1)))
             body = s(:begin, assign, *body.children)
           end
 
@@ -57,21 +57,21 @@ module Ruby2JS
             # extract arguments between those defined and the last
             assign1 = s(:lvasgn, vararg, s(:send, s(:attr, s(:attr, s(:const,
               nil, :Array), :prototype), :slice), :call, s(:lvar, :arguments),
-              s(:int, args.children.length-1), last))
+              s(:int, args.children.length - 1), last))
             # push block argument back onto args if not a function
             pushback = s(:if, s(:send, s(:send, nil, :typeof, s(:lvar, blk)), 
               :"!==", s(:str, "function")), s(:begin, s(:send, s(:lvar,
               vararg), :push, s(:lvar, blk)), s(:lvasgn, blk, s(:nil))), nil)
             # set block argument to null if all arguments were defined
             pushback = s(:if, s(:send, s(:attr, s(:lvar, :arguments),
-              :length), :<=, s(:int, args.children.length-2)), s(:lvasgn, 
+              :length), :<=, s(:int, args.children.length - 2)), s(:lvasgn, 
               blk, s(:nil)), pushback)
             # combine statements
             body = s(:begin, assign1, assign2, pushback, *body.children)
           else
             # set block argument to null if all arguments were defined
             ignore = s(:if, s(:send, s(:attr, s(:lvar, :arguments),
-              :length), :<=, s(:int, args.children.length-2)), s(:lvasgn, 
+              :length), :<=, s(:int, args.children.length - 2)), s(:lvasgn, 
               blk, s(:nil)), nil)
             body = s(:begin, assign2, ignore, *body.children)
           end

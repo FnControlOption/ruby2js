@@ -18,7 +18,7 @@ module Ruby2JS
         end
 
         stack = []
-        while target!=nil and target.type==:send and target.children.length==2
+        while target != nil and target.type == :send and target.children.length == 2
           name = method.to_s
           if name.end_with? '!'
             stack << s(:hash, s(:pair, s(:sym, :id), s(:str, name[0..-2])))
@@ -48,7 +48,7 @@ module Ruby2JS
       def on_block(node)
         send, args, *block = node.children
         target, method, *_ = send.children
-        while target!=nil and target.type==:send and target.children.length==2
+        while target != nil and target.type == :send and target.children.length == 2
           target, method = target.children
         end
 

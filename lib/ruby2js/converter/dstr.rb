@@ -18,7 +18,7 @@ module Ruby2JS
       if es2015
         # gather length of string parts; if long enough, newlines will
         # not be escaped (poor man's HEREDOC)
-        strings = children.select {|child| child.type==:str}.
+        strings = children.select {|child| child.type == :str}.
           map {|child| child.children.last}.join
         heredoc = (strings.length > 40 and strings.scan("\n").length > 3)
 

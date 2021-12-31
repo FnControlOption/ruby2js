@@ -54,7 +54,7 @@ module Ruby2JS
           process S(:send, s(:lvar, :_), :zip, node.children[0],
             *node.children[2..-1])
         elsif method == :invoke
-          if node.children.length >= 3 and node.children.last.type==:block_pass
+          if node.children.length >= 3 and node.children.last.type == :block_pass
             process S(:send, s(:lvar, :_), :invoke, node.children[0],
               node.children.last.children.first,
               *node.children[2..-2])
@@ -115,7 +115,7 @@ module Ruby2JS
         if [:sort_by, :group_by, :index_by, :count_by].include? method
           # input: a.sort_by {}
           # output: _.sortBy {return expression}
-          method = method.to_s.sub(/\_by$/,'By').to_sym
+          method = method.to_s.sub(/\_by$/, 'By').to_sym
           process S(:block, s(:send, s(:lvar, :_), method,
             call.children.first), node.children[1],
             s(:autoreturn, node.children[2]))
@@ -178,7 +178,7 @@ module Ruby2JS
       def on_irange(node)
         if node.children.last.type == :int
           process S(:call, s(:lvar, :_), :range, node.children.first,
-            s(:int, node.children.last.children.last+1))
+            s(:int, node.children.last.children.last + 1))
         else
           process S(:call, s(:lvar, :_), :range, node.children.first,
             s(:send, node.children.last, :+, s(:int, 1)))

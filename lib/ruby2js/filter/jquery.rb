@@ -100,7 +100,7 @@ module Ruby2JS
             if asgn.children[0] and asgn.children[0].type == :send
               inner = asgn.children[0]
               return on_send s(:send, s(:send, inner.children[0],
-                (inner.children[1].to_s+'=').to_sym,
+                (inner.children[1].to_s + '=').to_sym,
                 s(:send, s(:send, s(:send, inner.children[0], :~),
                 *inner.children[1..-1]), *asgn.children[1..-1])), :~)
             else

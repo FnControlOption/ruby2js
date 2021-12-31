@@ -37,9 +37,9 @@ module Ruby2JS
     end
 
     def combine_properties(body)
-      (0...body.length-1).each do |i|
+      (0...body.length - 1).each do |i|
         next unless body[i] and body[i].type == :prop
-        (i+1...body.length).each do |j|
+        (i + 1...body.length).each do |j|
           break unless body[j] and body[j].type == :prop
 
           if body[i].children[0] == body[j].children[0]
@@ -56,7 +56,7 @@ module Ruby2JS
             end
 
             # merge properties
-            merge = Hash[(body[i].children[1].to_a+body[j].children[1].to_a).
+            merge = Hash[(body[i].children[1].to_a + body[j].children[1].to_a).
               group_by {|name, value| name.to_s}.map {|name, values|
               [name, values.map(&:last).reduce(:merge)]}]
             body[j] = s(:prop, body[j].children[0], merge)

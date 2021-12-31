@@ -26,7 +26,7 @@ module Ruby2JS
           (expression.type == :erange ? put(' < ') : put(' <= '))
           parse expression.children.last; put '; '; parse var; put '++'
         else
-          put (@ast.type==:for_of ? ' of ' : ' in '); parse expression; 
+          put (@ast.type == :for_of ? ' of ' : ' in '); parse expression; 
         end
         puts ') {'; redoable block; sput '}'
       ensure

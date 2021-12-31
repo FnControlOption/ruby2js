@@ -224,7 +224,7 @@ module Ruby2JS
     options[:module] ||= @@module_default || :esm
 
     if Proc === source
-      file,line = source.source_location
+      file, line = source.source_location
       source = IO.read(file)
       ast, comments = parse(source)
       comments = Parser::Source::Comment.associate(ast, comments) if ast

@@ -27,7 +27,7 @@ module Ruby2JS
 
       op_index = operator_index type
 
-      lgroup   = LOGICAL.include?( left.type ) && 
+      lgroup = LOGICAL.include?( left.type ) && 
         op_index < operator_index( left.type )
       lgroup = true if left and left.type == :begin
 
@@ -36,7 +36,7 @@ module Ruby2JS
       rgroup = true if right.type == :begin
 
       put '(' if lgroup; parse left; put ')' if lgroup
-      put (type==:and ? ' && ' : ((@or == :nullish and es2020) ? ' ?? ' : ' || '))
+      put (type == :and ? ' && ' : ((@or == :nullish and es2020) ? ' ?? ' : ' || '))
       put '(' if rgroup; parse right; put ')' if rgroup
     end
 
@@ -55,7 +55,7 @@ module Ruby2JS
       elsif expr.type == :and
         parse s(:or, s(:not, expr.children[0]), s(:not, expr.children[1]))
       else
-        group   = LOGICAL.include?( expr.type ) && 
+        group = LOGICAL.include?( expr.type ) && 
           operator_index( :not ) < operator_index( expr.type )
         group = true if expr and %i[begin in?].include? expr.type
 

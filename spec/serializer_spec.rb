@@ -55,14 +55,14 @@ describe 'serializer tests' do
 
   describe 'output location' do
     it 'should track output location' do
-      _(@serializer.output_location).must_equal [0,0]
+      _(@serializer.output_location).must_equal [0, 0]
       @serializer.put 'a'
       @serializer.put 'b'
-      _(@serializer.output_location).must_equal [0,2]
+      _(@serializer.output_location).must_equal [0, 2]
       @serializer.puts 'c'
       @serializer.put 'd'
       @serializer.put 'e'
-      _(@serializer.output_location).must_equal [1,2]
+      _(@serializer.output_location).must_equal [1, 2]
     end
   end
 
@@ -120,7 +120,7 @@ describe 'serializer tests' do
         @serializer.put 'token'
         @serializer.sput ']'
       end
-      _(@serializer.lines).must_equal [["["], ["token, "]*29 + ["token"], ["]"]]
+      _(@serializer.lines).must_equal [["["], ["token, "] * 29 + ["token"], ["]"]]
     end
 
     it "shouldn't compact comments" do

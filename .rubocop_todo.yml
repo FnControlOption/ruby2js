@@ -214,28 +214,11 @@ Layout/MultilineMethodCallIndentation:
 Layout/MultilineOperationIndentation:
   Enabled: false
 
-# Offense count: 2
-# Cop supports --auto-correct.
-Layout/SpaceAfterColon:
-  Enabled: false
-
-# Offense count: 29
-# Cop supports --auto-correct.
-Layout/SpaceAfterComma:
-  Enabled: false
-
 # Offense count: 41
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: space, no_space
 Layout/SpaceAroundEqualsInParameterDefault:
-  Enabled: false
-
-# Offense count: 147
-# Cop supports --auto-correct.
-# Configuration parameters: AllowForAlignment, EnforcedStyleForExponentOperator.
-# SupportedStylesForExponentOperator: space, no_space
-Layout/SpaceAroundOperators:
   Enabled: false
 
 # Offense count: 10

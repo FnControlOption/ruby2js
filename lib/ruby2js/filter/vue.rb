@@ -113,7 +113,7 @@ module Ruby2JS
         # insert constructor if none present
         if inheritance == s(:const, nil, :Vue)
           unless body.any? {|statement|
-            statement.type == :def and statement.children.first ==:initialize}
+            statement.type == :def and statement.children.first == :initialize}
           then
             body = body.dup
             body.unshift s(:def, :initialize, s(:args), nil)
@@ -491,7 +491,7 @@ module Ruby2JS
         end
 
         # calls to methods (including getters) defined in this class
-        if node.children[0]==nil and Symbol === node.children[1]
+        if node.children[0] == nil and Symbol === node.children[1]
           if node.is_method?
             if @vue_methods.include? node.children[1]
               # calls to methods defined in this class
@@ -845,7 +845,7 @@ module Ruby2JS
             text
           end
 
-        elsif node.children[0]==s(:send, nil, :_) and node.children[1]==:[]
+        elsif node.children[0] == s(:send, nil, :_) and node.children[1] == :[]
           if @vue_apply
             # if apply is set, emit code that pushes results
             s(:send, s(:gvar, :$_), :push, *process_all(node.children[2..-1]))
@@ -901,11 +901,11 @@ module Ruby2JS
               if node.children[1] !~ /!$/
                 # convert method name to hash {class: name} pair
                 pair = s(:pair, s(:sym, :class),
-                  s(:str, node.children[1].to_s.gsub('_','-')))
+                  s(:str, node.children[1].to_s.gsub('_', '-')))
               else
                 # convert method name to hash {id: name} pair
                 pair = s(:pair, s(:sym, :id),
-                  s(:str, node.children[1].to_s[0..-2].gsub('_','-')))
+                  s(:str, node.children[1].to_s[0..-2].gsub('_', '-')))
               end
 
               # if a hash argument is already passed, merge in id value
@@ -936,7 +936,7 @@ module Ruby2JS
       def vue_collapse_pushes(node)
         if node.type == :begin
           prev = nil
-          (node.children.length-1).downto(0) do |i|
+          (node.children.length - 1).downto(0) do |i|
             child = node.children[i]
             if \
               child.type == :send and child.children[0] == s(:gvar, :$_) and
@@ -945,8 +945,8 @@ module Ruby2JS
               if prev
                 node = node.updated(nil, [*node.children[0...i],
                   node.children[i].updated(nil, node.children[i].children +
-                    node.children[i+1].children[2..-1]),
-                  *node.children[prev+1..-1]])
+                    node.children[i + 1].children[2..-1]),
+                  *node.children[prev + 1..-1]])
               end
               prev = i
             else

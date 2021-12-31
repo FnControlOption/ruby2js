@@ -17,8 +17,8 @@ module Ruby2JS
           parse s(:send, item, :concat, s(:array, *items[1..-1]))
         else
           parse s(:send, 
-            s(:send, s(:array, *items[0..splat-1]), :concat, item), 
-            :concat, s(:array, *items[splat+1..-1]))
+            s(:send, s(:array, *items[0..splat - 1]), :concat, item), 
+            :concat, s(:array, *items[splat + 1..-1]))
         end
       else
         if items.length <= 1

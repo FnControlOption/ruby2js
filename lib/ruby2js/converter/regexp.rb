@@ -19,7 +19,7 @@ module Ruby2JS
         parts.map! do |part|
           if part.type == :str
             str = part.children.first 
-            str = str.gsub(/ #.*/,'').gsub(/\s/,'')
+            str = str.gsub(/ #.*/, '').gsub(/\s/, '')
             s(:str, str)
           else
             part

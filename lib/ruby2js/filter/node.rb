@@ -261,7 +261,7 @@ module Ruby2JS
           elsif method == :rmdir and args.length == 1
             prepend_list << IMPORT_FS
             S(:send, s(:attr, nil, :fs), :rmdirSync, process(args.first))
-          elsif method == :mktmpdir and args.length <=1
+          elsif method == :mktmpdir and args.length <= 1
             prepend_list << IMPORT_FS
             if args.length == 0
               prefix = s(:str, 'd')

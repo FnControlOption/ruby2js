@@ -254,7 +254,7 @@ module Ruby2JS
           @ast.type == :class_module or methods > 1 or 
           body[start]&.type == :prop
         then
-          pairs = body[start...start+methods].map do |node|
+          pairs = body[start...start + methods].map do |node|
             if node.type == :method
               replacement = node.updated(:pair, [
                 s(:str, node.children[1].to_s.chomp('=')),
@@ -286,27 +286,27 @@ module Ruby2JS
           if @ast.type == :class_module
             start = 0 if methods == 0
             if name
-              body[start...start+methods] =
+              body[start...start + methods] =
                 s(:casgn, *name.children, s(:hash, *pairs.flatten))
             else
-              body[start...start+methods] = s(:hash, *pairs.flatten)
+              body[start...start + methods] = s(:hash, *pairs.flatten)
             end
           elsif @ast.type == :class_extend or extend
-            body[start...start+methods] =
+            body[start...start + methods] =
               s(:assign, body[start].children.first, s(:hash, *pairs.flatten))
           else
-            body[start...start+methods] =
+            body[start...start + methods] =
               s(:send, name, :prototype=, s(:hash, *pairs.flatten))
           end
 
         elsif (@ast.type == :class_extend or extend) and methods > 1
 
-          pairs = body[start...start+methods].map do |node|
+          pairs = body[start...start + methods].map do |node|
             node.updated(:pair, [
                s(:sym, node.children[1].to_s[0..-2]), node.children[2]])
           end
 
-          body[start...start+methods] =
+          body[start...start + methods] =
             s(:assign, body[start].children.first, s(:hash, *pairs))
         end
       end

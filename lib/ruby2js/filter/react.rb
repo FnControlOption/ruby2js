@@ -520,7 +520,7 @@ module Ruby2JS
 
       def on_send(node)
         # calls to methods (including getters) defined in this class
-        if node.children[0]==nil and Symbol === node.children[1]
+        if node.children[0] == nil and Symbol === node.children[1]
           if node.is_method?
             if @react_methods.include? node.children[1]
               # calls to methods defined in this class
@@ -894,7 +894,7 @@ module Ruby2JS
             element
           end
 
-        elsif node.children[0]==s(:send, nil, :_) and node.children[1]==:[]
+        elsif node.children[0] == s(:send, nil, :_) and node.children[1] == :[]
           if @reactApply
             # if apply is set, emit code that pushes results
             s(:send, s(:gvar, :$_), :push, *process_all(node.children[2..-1]))
@@ -935,7 +935,7 @@ module Ruby2JS
             if asgn.children[0] and asgn.children[0].type == :send
               inner = asgn.children[0]
               return on_send s(:send, s(:send, inner.children[0],
-                (inner.children[1].to_s+'=').to_sym,
+                (inner.children[1].to_s + '=').to_sym,
                 s(:send, s(:send, s(:send, inner.children[0], '~'),
                 *inner.children[1..-1]), *asgn.children[1..-1])), '~')
             else
@@ -1014,15 +1014,15 @@ module Ruby2JS
                 # convert method name to hash {className: name} pair
                 if @react == :Preact
                   pair = s(:pair, s(:sym, :class),
-                    s(:str, node.children[1].to_s.gsub('_','-')))
+                    s(:str, node.children[1].to_s.gsub('_', '-')))
                 else
                   pair = s(:pair, s(:sym, :className),
-                    s(:str, node.children[1].to_s.gsub('_','-')))
+                    s(:str, node.children[1].to_s.gsub('_', '-')))
                 end
               else
                 # convert method name to hash {id: name} pair
                 pair = s(:pair, s(:sym, :id),
-                  s(:str, node.children[1].to_s[0..-2].gsub('_','-')))
+                  s(:str, node.children[1].to_s[0..-2].gsub('_', '-')))
               end
 
               # if a hash argument is already passed, merge in id value
@@ -1378,7 +1378,7 @@ module Ruby2JS
         when :op_asgn, :or_asgn, :and_asgn
           if child.type == :ivasgn
             gchild = child.children.first
-            if (@reactIvars[:ref]+@reactIvars[:cond]).include? gchild
+            if (@reactIvars[:ref] + @reactIvars[:cond]).include? gchild
               @reactIvars[:pre] << gchild
               @reactIvars[:post] << gchild
             end
@@ -1415,22 +1415,22 @@ module Ruby2JS
       # collapse consecutive setState calls into a single call
       def on_begin(node)
         node = super
-        (node.children.length-2).downto(0) do |i|
+        (node.children.length - 2).downto(0) do |i|
           if \
             node.children[i].type == :send and
             node.children[i].children[0] and
             node.children[i].children[0].type == :self and
             node.children[i].children[1] == :setState and
             node.children[i].children[2].type == :hash and
-            node.children[i+1].type == :send and
-            node.children[i+1].children[0] and
-            node.children[i+1].children[0].type == :self and
-            node.children[i+1].children[1] == :setState and
-            node.children[i+1].children[2].type == :hash and
-            @comments[node.children[i+1]].empty?
+            node.children[i + 1].type == :send and
+            node.children[i + 1].children[0] and
+            node.children[i + 1].children[0].type == :self and
+            node.children[i + 1].children[1] == :setState and
+            node.children[i + 1].children[2].type == :hash and
+            @comments[node.children[i + 1]].empty?
           then
             pairs = node.children[i].children[2].children +
-                   node.children[i+1].children[2].children
+                   node.children[i + 1].children[2].children
             children = node.children.dup
             children.delete_at(i)
             children[i] = children[i].updated(nil, [
@@ -1462,7 +1462,7 @@ module Ruby2JS
       # common logic for inserting code to manage state (ivars)
       def react_process_ivars(block)
         # drill down if necessary to find the block
-        while block.length==1 and block.first and block.first.type==:begin
+        while block.length == 1 and block.first and block.first.type == :begin
           block = block.first.children.dup
         end
 
@@ -1481,7 +1481,7 @@ module Ruby2JS
           update = s(:send, s(:self), :setState, s(:hash, *updates))
 
           if block.last.type == :return
-            block.insert(block.length-1, update)
+            block.insert(block.length - 1, update)
           else
             block.push(update)
           end

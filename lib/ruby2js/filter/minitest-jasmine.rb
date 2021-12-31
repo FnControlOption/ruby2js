@@ -65,34 +65,34 @@ module Ruby2JS
       def on_send(node)
         target, method, *args = node.children
         if target
-          if method==:must_be && args.length==2 && RELOPS.include?(args[0])
+          if method == :must_be && args.length == 2 && RELOPS.include?(args[0])
             process s(:send, nil, :assert_operator, target, *args)
-          elsif method==:must_be_close_to && [1,2].include?(args.length)
+          elsif method == :must_be_close_to && [1, 2].include?(args.length)
             process s(:send, nil, :assert_in_delta, target, *args)
-          elsif method==:must_be_within_delta && [1,2].include?(args.length)
+          elsif method == :must_be_within_delta && [1, 2].include?(args.length)
             process s(:send, nil, :assert_in_delta, target, *args)
-          elsif method==:must_be_nil && args.length == 0
+          elsif method == :must_be_nil && args.length == 0
             process s(:send, nil, :assert_nil, target)
-          elsif method==:must_equal && args.length == 1
+          elsif method == :must_equal && args.length == 1
             process s(:send, nil, :assert_equal, args.first, target)
-          elsif method==:must_include && args.length == 1
+          elsif method == :must_include && args.length == 1
             process s(:send, nil, :assert_includes, target, args.first)
-          elsif method==:must_match && args.length == 1
+          elsif method == :must_match && args.length == 1
             process s(:send, nil, :assert_match, args.first, target)
 
-          elsif method==:cant_be && args.length==2 && RELOPS.include?(args[0])
+          elsif method == :cant_be && args.length == 2 && RELOPS.include?(args[0])
             process s(:send, nil, :refute_operator, target, *args)
-          elsif method==:cant_be_close_to && [1,2].include?(args.length)
+          elsif method == :cant_be_close_to && [1, 2].include?(args.length)
             process s(:send, nil, :refute_in_delta, target, *args)
-          elsif method==:cant_be_within_delta && [1,2].include?(args.length)
+          elsif method == :cant_be_within_delta && [1, 2].include?(args.length)
             process s(:send, nil, :refute_in_delta, target, *args)
-          elsif method==:cant_be_nil && args.length == 0
+          elsif method == :cant_be_nil && args.length == 0
             process s(:send, nil, :refute_nil, target)
-          elsif method==:cant_equal && args.length == 1
+          elsif method == :cant_equal && args.length == 1
             process s(:send, nil, :refute_equal, args.first, target)
-          elsif method==:cant_include && args.length == 1
+          elsif method == :cant_include && args.length == 1
             process s(:send, nil, :refute_includes, target, args.first)
-          elsif method==:cant_match && args.length == 1
+          elsif method == :cant_match && args.length == 1
             process s(:send, nil, :refute_match, args.first, target)
 
           else
@@ -110,7 +110,7 @@ module Ruby2JS
               process s(:send, s(:send, nil, :expect, args.last), :toEqual,
                 args.first)
             end
-          elsif method == :assert_in_delta and [2,3].include? args.length
+          elsif method == :assert_in_delta and [2, 3].include? args.length
             delta = (args.length == 3 ? args.last : s(:float, 0.001))
             process s(:send, s(:send, nil, :expect, args[1]), :toBeCloseTo,
               args.first, delta)
@@ -122,7 +122,7 @@ module Ruby2JS
               args.first)
           elsif method == :assert_nil and args.length == 1
             process s(:send, s(:send, nil, :expect, args.first), :toBeNull)
-          elsif method==:assert_operator && args.length==3 && args[1].type==:sym
+          elsif method == :assert_operator && args.length == 3 && args[1].type == :sym
             if args[1].children.first == :<
               process s(:send, s(:send, nil, :expect, args.first),
                 :toBeLessThan, args.last)
@@ -151,7 +151,7 @@ module Ruby2JS
               process s(:send, s(:attr, s(:send, nil, :expect, args.last), 
                 :not), :toEqual, args.first)
             end
-          elsif method == :refute_in_delta and [2,3].include? args.length
+          elsif method == :refute_in_delta and [2, 3].include? args.length
             delta = (args.length == 3 ? args.last : s(:float, 0.001))
             process s(:send, s(:send, nil, :expect, args[1]), :toBeCloseTo,
               args.first, delta)
@@ -164,7 +164,7 @@ module Ruby2JS
           elsif method == :refute_nil and args.length == 1
             process s(:send, s(:attr, s(:send, nil, :expect, args.first), 
               :not), :toBeNull)
-          elsif method==:refute_operator && args.length==3 && args[1].type==:sym
+          elsif method == :refute_operator && args.length == 3 && args[1].type == :sym
             if args[1].children.first == :<=
               process s(:send, s(:send, nil, :expect, args.first),
                 :toBeGreaterThan, args.last)

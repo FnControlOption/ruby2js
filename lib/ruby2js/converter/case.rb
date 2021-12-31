@@ -56,7 +56,7 @@ module Ruby2JS
             last = last.children.last
           end
 
-          if other or index < whens.length-1
+          if other or index < whens.length - 1
             put "#{@sep}" 
             put "break#@sep" unless last.type == :return
           end

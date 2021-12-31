@@ -62,10 +62,10 @@ module Ruby2JS
               return super if groups.length == index and not stack.empty?
               stack.push groups.last
             elsif token[1] == :close
-              stack.pop[-1]=token.last
+              stack.pop[-1] = token.last
             end
           end
-          group = groups[index-1]
+          group = groups[index - 1]
 
           # rewrite regex
           prepend = nil
@@ -100,10 +100,10 @@ module Ruby2JS
           else
             dstr = args.last.type == :dstr ? args.last.children.dup : [args.last]
             if prepend
-              dstr.unshift s(:send, s(:lvar, :match), :[], s(:int, prepend-1))
+              dstr.unshift s(:send, s(:lvar, :match), :[], s(:int, prepend - 1))
             end
             if append
-              dstr << s(:send, s(:lvar, :match), :[], s(:int, append-1))
+              dstr << s(:send, s(:lvar, :match), :[], s(:int, append - 1))
             end
 
             expr = s(:block,
@@ -411,7 +411,7 @@ module Ruby2JS
           elsif index.type == :irange
             start, finish = index.children
             if finish and finish.type == :int
-              final = S(:int, finish.children.first+1)
+              final = S(:int, finish.children.first + 1)
             else
               final = S(:send, finish, :+, s(:int, 1))
             end
@@ -471,26 +471,26 @@ module Ruby2JS
           # prevent chained delete methods from being converted to undef
           S(:send, target.updated(:sendw), *node.children[1..-1])
 
-        elsif es2017 and method==:entries and args.length==0 and node.is_method?
+        elsif es2017 and method == :entries and args.length == 0 and node.is_method?
           process node.updated(nil, [s(:const, nil, :Object), :entries, target])
 
-        elsif es2017 and method==:values and args.length==0 and node.is_method?
+        elsif es2017 and method == :values and args.length == 0 and node.is_method?
           process node.updated(nil, [s(:const, nil, :Object), :values, target])
 
-        elsif es2017 and method==:rjust
+        elsif es2017 and method == :rjust
           process node.updated(nil, [target, :padStart, *args])
 
-        elsif es2017 and method==:ljust
+        elsif es2017 and method == :ljust
           process node.updated(nil, [target, :padEnd, *args])
 
-        elsif es2019 and method==:flatten and args.length == 0
+        elsif es2019 and method == :flatten and args.length == 0
           process node.updated(nil, [target, :flat, s(:lvar, :Infinity)])
 
-        elsif es2019 and method==:to_h and args.length==0
+        elsif es2019 and method == :to_h and args.length == 0
           process node.updated(nil, [s(:const, nil, :Object), :fromEntries,
             target])
 
-        elsif method==:rstrip
+        elsif method == :rstrip
           if es2019
             process node.updated(nil, [target, :trimEnd, *args])
           else
@@ -498,7 +498,7 @@ module Ruby2JS
               s(:regexp, s(:str, '\s+\z'), s(:regopt)), s(:str, '')])
           end
 
-        elsif method==:lstrip and args.length == 0
+        elsif method == :lstrip and args.length == 0
           if es2019
             process s(:send, target, :trimStart)
           else
@@ -512,7 +512,7 @@ module Ruby2JS
         elsif method == :rindex and node.is_method?
           process node.updated(nil, [target, :lastIndexOf, *args])
 
-        elsif method == :class and args.length==0 and not node.is_method?
+        elsif method == :class and args.length == 0 and not node.is_method?
           process node.updated(:attr, [target, :constructor])
 
         elsif method == :new and target == s(:const, nil, :Exception)

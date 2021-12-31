@@ -57,7 +57,7 @@ module Ruby2JS
           end
 
           begin
-            block_depth,block_hash = @block_depth,false
+            block_depth, block_hash = @block_depth, false
             left, right = node.children
 
             if Hash === right or right.type == :block

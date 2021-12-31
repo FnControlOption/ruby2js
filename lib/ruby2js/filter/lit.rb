@@ -24,7 +24,7 @@ module Ruby2JS
         return super unless @le_props&.include?(node.children.first)
         return super unless node.children.length > 1
 
-        process s(:send, s(:self), node.children.first.to_s[1..-1]+'=',
+        process s(:send, s(:self), node.children.first.to_s[1..-1] + '=',
           process(node.children[1]))
       end
 

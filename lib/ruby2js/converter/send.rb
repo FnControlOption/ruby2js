@@ -70,7 +70,7 @@ module Ruby2JS
 
       # call anonymous function
       if [:call, :[]].include? method and receiver and receiver.type == :block
-        t2,m2,*args2 = receiver.children.first.children
+        t2, m2, *args2 = receiver.children.first.children
         if not t2 and [:lambda, :proc].include? m2 and args2.length == 0
           (es2015 || @state == :statement ? group(receiver) : parse(receiver))
           put '('; parse_all(*args, join: ', '); put ')'

@@ -140,8 +140,8 @@ describe "ES2015 support" do
     end
 
     it "should handle ivars" do
-      to_js( '@x', ivars: {:@x => {a:1}} ).must_equal '{a: 1}'
-      to_js( '@x', ivars: {:@x => {"a"=>1}} ).must_equal '{a: 1}'
+      to_js( '@x', ivars: {:@x => {a: 1}} ).must_equal '{a: 1}'
+      to_js( '@x', ivars: {:@x => {"a" => 1}} ).must_equal '{a: 1}'
     end
   end
 
@@ -556,11 +556,11 @@ describe "ES2015 support" do
           'class A$ {method_missing(method, ...args) {}}; ' +
           'function A(...args) {' +
             'return new Proxy(new A$(...args), {get(obj, prop) {' +
-              'if (prop in obj) {'+
-                'return obj[prop]'+
-              '} else {'+
-                'return (...args) => (obj.method_missing(prop, ...args))'+
-              '}'+
+              'if (prop in obj) {' +
+                'return obj[prop]' +
+              '} else {' +
+                'return (...args) => (obj.method_missing(prop, ...args))' +
+              '}' +
             '}})' +
           '}'
         )
@@ -572,11 +572,11 @@ describe "ES2015 support" do
           'class A$ {method_missing(method) {}}; ' +
           'function A(...args) {' +
             'return new Proxy(new A$(...args), {get(obj, prop) {' +
-              'if (prop in obj) {'+
-                'return obj[prop]'+
-              '} else {'+
-                'return obj.method_missing(prop)'+
-              '}'+
+              'if (prop in obj) {' +
+                'return obj[prop]' +
+              '} else {' +
+                'return obj.method_missing(prop)' +
+              '}' +
             '}})' +
           '}'
         )
