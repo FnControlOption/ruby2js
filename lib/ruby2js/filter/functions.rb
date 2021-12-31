@@ -268,8 +268,8 @@ module Ruby2JS
           if es2015
             if method == :start_with?
               process S(:send, target, :startsWith, *args)
-                  else
-                    process S(:send, target, :endsWith, *args)
+            else
+              process S(:send, target, :endsWith, *args)
             end
           else
             if args.first.type == :str

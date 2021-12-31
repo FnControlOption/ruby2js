@@ -61,11 +61,6 @@ Layout/ConditionPosition:
 Layout/DotPosition:
   Enabled: false
 
-# Offense count: 20
-# Cop supports --auto-correct.
-Layout/ElseAlignment:
-  Enabled: false
-
 # Offense count: 2
 # Cop supports --auto-correct.
 # Configuration parameters: AllowBorderComment, AllowMarginComment.
