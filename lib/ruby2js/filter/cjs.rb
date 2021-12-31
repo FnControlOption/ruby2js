@@ -100,15 +100,15 @@ module Ruby2JS
               s(:attr, nil, :exports),
               assign.children[0].children[1].to_s + '=',
               s(:block, s(:send, s(:const, nil, :Class), :new),
-              s(:args), *process_all(assign.children[2..-1]))
+                s(:args), *process_all(assign.children[2..-1]))
             ])
           else
             node.updated(nil, [
               s(:attr, nil, :exports),
               assign.children[0].children[1].to_s + '=',
               s(:block, s(:send, s(:const, nil, :Class), :new,
-              assign.children[1]), s(:args), 
-              *process_all(assign.children[2..-1]))
+                assign.children[1]), s(:args), 
+                *process_all(assign.children[2..-1]))
             ])
           end
 
@@ -135,7 +135,7 @@ module Ruby2JS
             fn.children[0].to_s + '=',
             s(:send, nil, :async,
               s(:block, s(:send, nil, :proc),
-              *process_all(fn.children[1..-1])))
+                *process_all(fn.children[1..-1])))
           ])
 
         elsif \
@@ -171,7 +171,7 @@ module Ruby2JS
             s(:attr, nil, :module),
             :exports=,
             s(:block, s(:send, nil, :proc),
-            *process_all(node.children[1..-1]))
+              *process_all(node.children[1..-1]))
           ])
         elsif send.children[2] == s(:send, nil, :async, s(:send, nil, :proc))
           node.updated(:send, [
@@ -179,7 +179,7 @@ module Ruby2JS
             :exports=,
             s(:send, nil, :async,
               s(:block, s(:send, nil, :proc),
-              *process_all(node.children[1..-1])))
+                *process_all(node.children[1..-1])))
           ])
         else
           super

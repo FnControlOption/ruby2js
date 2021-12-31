@@ -77,7 +77,7 @@ module Ruby2JS
                 s(:args, s(:arg, :memo), s(:arg, :item)),
                 s(:autoreturn, s(:send, s(:lvar, :memo),
                   node.children[2].children.first, s(:lvar, :item)))),
-                s(:send, node.children.first, :[], s(:int, 0)))
+              s(:send, node.children.first, :[], s(:int, 0)))
           elsif node.children.last.type == :block_pass
             on_send node.updated(nil, [*node.children[0..1],
               node.children[2].children.first])
@@ -88,8 +88,8 @@ module Ruby2JS
               s(:block, s(:send, nil, :proc),
                 s(:args, s(:arg, :memo), s(:arg, :item)),
                 s(:autoreturn, s(:send, s(:lvar, :memo),
-                node.children[3].children.first, s(:lvar, :item)))),
-                node.children[2])
+                  node.children[3].children.first, s(:lvar, :item)))),
+              node.children[2])
           else
             super
           end
@@ -101,7 +101,7 @@ module Ruby2JS
           target = node.children.first
           process S(:send, target, :splice, s(:int, 0),
             s(:attr, target, :length), s(:splat, s(:send, target,
-            :"#{method.to_s[0..-2]}", *node.children[2..-1])))
+              :"#{method.to_s[0..-2]}", *node.children[2..-1])))
         else
           super
         end
@@ -146,14 +146,14 @@ module Ruby2JS
               s(:send, s(:lvar, :_), :rest, call.children.first),
               s(:block, s(:send, nil, :proc),
                 node.children[1], s(:autoreturn, node.children[2])),
-                s(:send, call.children.first, :[], s(:int, 0)))
+              s(:send, call.children.first, :[], s(:int, 0)))
           elsif call.children.length == 3
             # input: a.reduce(n) {|memo, item| memo+item}
             # output: _.reduce(a, proc {|memo, item| return memo+item}, n)
             process S(:call, s(:lvar, :_), :reduce, call.children.first,
               s(:block, s(:send, nil, :proc),
                 node.children[1], s(:autoreturn, node.children[2])),
-                call.children[2])
+              call.children[2])
           end
 
         elsif [:map!, :reject!, :select!, :sort_by!].include? method
@@ -164,7 +164,7 @@ module Ruby2JS
           process S(:call, target, :splice, s(:splat, s(:send, s(:array,
             s(:int, 0), s(:attr, target, :length)), :concat,
             s(:block, s(:send, target, method, *call.children[2..-1]),
-            *node.children[1..-1]))))
+              *node.children[1..-1]))))
 
         else
           super

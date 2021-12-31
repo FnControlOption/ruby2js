@@ -148,8 +148,8 @@ module Ruby2JS
               s(:begin, *m.children[2..-1].map {|modname|
                 @namespace.defineProps @namespace.find(modname)
                 s(:for, s(:lvasgn, :$_), modname,
-                s(:send, s(:attr, name, :prototype), :[]=,
-                s(:lvar, :$_), s(:send, modname, :[], s(:lvar, :$_))))
+                  s(:send, s(:attr, name, :prototype), :[]=,
+                    s(:lvar, :$_), s(:send, modname, :[], s(:lvar, :$_))))
               })), :[])
           elsif [:private, :protected, :public].include? m.children[1]
             raise Error.new("class #{m.children[1]} is not supported", @ast)
@@ -324,9 +324,9 @@ module Ruby2JS
           else
             constructor = s(:send, s(:block, s(:send, nil, :proc),
               s(:args, s(:shadowarg, :$_)), s(:begin,
-              s(:gvasgn, :$_, s(:attr, name, :prototype)),
-              s(:send, s(:casgn, *name.children, constructor),
-              :prototype=, s(:gvar, :$_)))), :[])
+                s(:gvasgn, :$_, s(:attr, name, :prototype)),
+                s(:send, s(:casgn, *name.children, constructor),
+                  :prototype=, s(:gvar, :$_)))), :[])
           end
         end
 
@@ -369,20 +369,20 @@ module Ruby2JS
             prop, descriptor = props.flatten
             parse s(:send, s(:const, nil, :Object), :defineProperty,
               obj, s(:sym, prop), s(:hash,
-              *descriptor.map { |key, value| s(:pair, s(:sym, key), value) }))
+                *descriptor.map { |key, value| s(:pair, s(:sym, key), value) }))
           else
             parse s(:send, s(:const, nil, :Object), :defineProperties,
               obj, s(:hash, *props.map {|hprop, hdescriptor|
                 s(:pair, s(:sym, hprop), 
-                s(:hash, *hdescriptor.map {|key, value| 
-                  s(:pair, s(:sym, key), value) }))}))
+                  s(:hash, *hdescriptor.map {|key, value| 
+                    s(:pair, s(:sym, key), value) }))}))
           end
         elsif @ast.type == :method
           parse s(:send, *args)
         elsif args.first.children.first
           parse s(:send, args.first.children.first,
             "#{args.first.children[1]}=", s(:block, s(:send, nil, :proc), 
-            *args[1..-1]))
+              *args[1..-1]))
         else
           parse s(:def, args.first.children[1], *args[1..-1])
         end

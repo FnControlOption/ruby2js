@@ -351,17 +351,17 @@ module Ruby2JS
             # normal case: return a function which, when called, will call
             # method_missing with method name and arguments.
             forward = s(:block, s(:send, nil, :proc), s(:args, s(:restarg, :args)),
-            s(:send, s(:lvar, :obj), :method_missing, s(:lvar, :prop),
-            s(:splat, s(:lvar, :args))))
+              s(:send, s(:lvar, :obj), :method_missing, s(:lvar, :prop),
+                s(:splat, s(:lvar, :args))))
           end
 
           proxy = s(:return, s(:send, s(:const, nil, :Proxy), :new,
             s(:send, rename, :new, s(:splat, s(:lvar, :args))),
             s(:hash, s(:pair, s(:sym, :get), s(:block, s(:send, nil, :proc),
-            s(:args, s(:arg, :obj), s(:arg, :prop)),
-            s(:if, s(:in?, s(:lvar, :prop), s(:lvar, :obj)),
-            s(:return, s(:send, s(:lvar, :obj), :[], s(:lvar, :prop))),
-            s(:return, forward))))))
+              s(:args, s(:arg, :obj), s(:arg, :prop)),
+              s(:if, s(:in?, s(:lvar, :prop), s(:lvar, :obj)),
+                s(:return, s(:send, s(:lvar, :obj), :[], s(:lvar, :prop))),
+                s(:return, forward))))))
           )
 
           if name.children.first == nil

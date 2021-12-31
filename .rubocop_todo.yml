@@ -26,13 +26,6 @@ Gemspec/RequireMFA:
 Gemspec/RequiredRubyVersion:
   Enabled: false
 
-# Offense count: 437
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, IndentationWidth.
-# SupportedStyles: with_first_argument, with_fixed_indentation
-Layout/ArgumentAlignment:
-  Enabled: false
-
 # Offense count: 120
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, IndentationWidth.

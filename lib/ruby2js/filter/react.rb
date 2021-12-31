@@ -31,7 +31,7 @@ module Ruby2JS
         Preact: s(:import,
           [s(:pair, s(:sym, :as), s(:const, nil, :Preact)),
             s(:pair, s(:sym, :from), s(:str, "preact"))],
-            s(:str, '*')),
+          s(:str, '*')),
         PreactHook: s(:import, ["preact/hooks"], [s(:attr, nil, :useState)])
       }
 
@@ -710,8 +710,8 @@ module Ruby2JS
             if value and pairs[value].children.last.type == :ivar and !onChange
               pairs << s(:pair, s(:sym, event),
                 s(:block, s(:send, nil, :proc), s(:args, s(:arg, :event)),
-                s(:ivasgn, pairs[value].children.last.children.first,
-                s(:attr, s(:attr, s(:lvar, :event), :target), :value))))
+                  s(:ivasgn, pairs[value].children.last.children.first,
+                    s(:attr, s(:attr, s(:lvar, :event), :target), :value))))
             end
 
             if not value and not onChange and tag == 'input'
@@ -723,8 +723,8 @@ module Ruby2JS
               if checked and pairs[checked].children.last.type == :ivar
                 pairs << s(:pair, s(:sym, event),
                   s(:block, s(:send, nil, :proc), s(:args),
-                  s(:ivasgn, pairs[checked].children.last.children.first,
-                  s(:send, pairs[checked].children.last, :!))))
+                    s(:ivasgn, pairs[checked].children.last.children.first,
+                      s(:send, pairs[checked].children.last, :!))))
               end
             end
           end
@@ -861,9 +861,9 @@ module Ruby2JS
                 # Base Ruby2JS processing will convert the 'splat' to 'apply'
                 params = [s(:splat, s(:send, s(:block, s(:send, nil, :proc),
                   s(:args, s(:shadowarg, :$_)), s(:begin,
-                  s(:lvasgn, :$_, s(:array, *params)),
-                  *args.map {|arg| process arg},
-                  s(:return, s(:lvar, :$_)))), :[]))]
+                    s(:lvasgn, :$_, s(:array, *params)),
+                    *args.map {|arg| process arg},
+                    s(:return, s(:lvar, :$_)))), :[]))]
               end
             ensure
               @reactApply = reactApply
@@ -937,7 +937,7 @@ module Ruby2JS
               return on_send s(:send, s(:send, inner.children[0],
                 (inner.children[1].to_s + '=').to_sym,
                 s(:send, s(:send, s(:send, inner.children[0], '~'),
-                *inner.children[1..-1]), *asgn.children[1..-1])), '~')
+                  *inner.children[1..-1]), *asgn.children[1..-1])), '~')
             else
               return on_send asgn.updated nil, [s(:send, asgn.children[0], '~'),
                 *asgn.children[1..-1]]
@@ -980,12 +980,12 @@ module Ruby2JS
               elsif tnode.children.first =~ /^(\.[-\w]+)+$/
                 s(:send, s(:send, s(:attr, nil, :document),
                   :getElementsByClassName, s(:str,
-                  tnode.children.first[1..-1].gsub('.', ' ').gsub('_', '-'))),
+                    tnode.children.first[1..-1].gsub('.', ' ').gsub('_', '-'))),
                   :[], s(:int, 0))
               elsif tnode.children.first =~ /^[-\w]+$/
                 s(:send, s(:send, s(:attr, nil, :document),
                   :getElementsByTagName, s(:str,
-                  tnode.children.first.gsub('_', '-'))), :[], s(:int, 0))
+                    tnode.children.first.gsub('_', '-'))), :[], s(:int, 0))
               else
                 s(:send, s(:attr, nil, :document), :querySelector, tnode)
               end
@@ -1098,9 +1098,9 @@ module Ruby2JS
             reactApply, @reactApply = @reactApply, true
             params = [s(:splat, s(:send, s(:block, s(:send, nil, :proc),
               s(:args, s(:shadowarg, :$_)), s(:begin,
-              s(:lvasgn, :$_, s(:array, *child.children[2..-1])),
-              process(node.children[2]),
-              s(:return, s(:lvar, :$_)))), :[]))]
+                s(:lvasgn, :$_, s(:array, *child.children[2..-1])),
+                process(node.children[2]),
+                s(:return, s(:lvar, :$_)))), :[]))]
           ensure
             @reactApply = reactApply
           end
@@ -1147,11 +1147,11 @@ module Ruby2JS
 
               return process s(:send, *send[0..1], *send[3..-1],
                 s(:splat, s(:block, s(:send, send[2], :map),
-                node.children[1], s(:return, node.children[2]))))
+                  node.children[1], s(:return, node.children[2]))))
             else
               return process s(:block, s(:send, *send[0..1], *send[3..-1]),
                 s(:args), s(:block, s(:send, send[2], :forEach),
-                *node.children[1..-1]))
+                  *node.children[1..-1]))
             end
           end
         end
@@ -1207,7 +1207,7 @@ module Ruby2JS
           if @reactBlock
             return s(:send, s(:self), :setState, s(:hash, s(:pair,
               s(:str, ivar[1..-1]), process(s(:lvasgn, "$#{ivar[1..-1]}",
-              *node.children[1..-1])))))
+                *node.children[1..-1])))))
           else
             return s(:lvasgn, "$#{ivar[1..-1]}",
               *process_all(node.children[1..-1]))
@@ -1228,7 +1228,7 @@ module Ruby2JS
           else
             s(:send, s(:self), :setState, s(:hash,
               *vars.map {|var| s(:pair, s(:str, var.to_s[1..-1]),
-              process(node.children.last))}))
+                process(node.children.last))}))
           end
         end
       end
@@ -1266,7 +1266,7 @@ module Ruby2JS
           if @reactBlock
             s(:send, s(:self), :setState, s(:hash, s(:pair,
               s(:str, var[1..-1]), process(s(node.type,
-              s(:lvasgn, "$#{var[1..-1]}"), *node.children[1..-1])))))
+                s(:lvasgn, "$#{var[1..-1]}"), *node.children[1..-1])))))
           else
             process s(node.type, s(:lvasgn, "$#{var[1..-1]}"),
               *node.children[1..-1])

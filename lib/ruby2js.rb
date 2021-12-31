@@ -203,11 +203,11 @@ module Ruby2JS
           if BINARY_OPERATORS.include? method
             return on_block s(:block, s(:send, *node.children[0..-2]),
               s(:args, s(:arg, :a), s(:arg, :b)), s(:return,
-              process(s(:send, s(:lvar, :a), method, s(:lvar, :b)))))
+                process(s(:send, s(:lvar, :a), method, s(:lvar, :b)))))
           elsif node.children.last.children.first.type == :sym
             return on_block s(:block, s(:send, *node.children[0..-2]),
               s(:args, s(:arg, :item)), s(:return,
-              process(s(:attr, s(:lvar, :item), method))))
+                process(s(:attr, s(:lvar, :item), method))))
           else
             super
           end

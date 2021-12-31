@@ -102,7 +102,7 @@ module Ruby2JS
               return on_send s(:send, s(:send, inner.children[0],
                 (inner.children[1].to_s + '=').to_sym,
                 s(:send, s(:send, s(:send, inner.children[0], :~),
-                *inner.children[1..-1]), *asgn.children[1..-1])), :~)
+                  *inner.children[1..-1]), *asgn.children[1..-1])), :~)
             else
               return on_send asgn.updated nil, [s(:send, asgn.children[0], :~),
                 *asgn.children[1..-1]]

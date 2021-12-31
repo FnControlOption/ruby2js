@@ -178,14 +178,14 @@ describe Ruby2JS::Filter::ESM do
     describe "defs option" do
       it "should define a method" do
         to_js('class C < Foo; def f; x; end; end',
-            defs: {Foo: [:x]}, autoimports: {Foo: 'foo.js'}).
+          defs: {Foo: [:x]}, autoimports: {Foo: 'foo.js'}).
           must_equal 'import Foo from "foo.js"; ' +
            'class C extends Foo {get f() {return this.x.bind(this)}}'
       end
 
       it "should define a property" do
         to_js('class C < Foo; def f; x; end; end',
-            defs: {Foo: [:@x]}, autoimports: {Foo: 'foo.js'}).
+          defs: {Foo: [:@x]}, autoimports: {Foo: 'foo.js'}).
           must_equal 'import Foo from "foo.js"; ' +
            'class C extends Foo {get f() {return this.x}}'
       end

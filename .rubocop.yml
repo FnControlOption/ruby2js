@@ -8,3 +8,6 @@ Layout/EndAlignment:
 
 Layout/ExtraSpacing:
   AllowBeforeTrailingComments: true
+
+Layout/ArgumentAlignment:
+  EnforcedStyle: with_fixed_indentation

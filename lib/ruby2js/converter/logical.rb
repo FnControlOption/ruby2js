@@ -78,7 +78,7 @@ module Ruby2JS
         # a && b && b.c => a && b&.c
         left.updated(:and, [left.children.first,
           left.children.last.updated(:csend, 
-          [left.children.last, *right.children[1..-1]])])
+            [left.children.last, *right.children[1..-1]])])
       else
         s(:and, left, right)
       end

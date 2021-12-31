@@ -10,12 +10,12 @@ module Ruby2JS
       STIMULUS_IMPORT = s(:import,
         [s(:pair, s(:sym, :as), s(:const, nil, :Stimulus)),
           s(:pair, s(:sym, :from), s(:str, "@hotwired/stimulus"))],
-          s(:str, '*'))
+        s(:str, '*'))
 
       STIMULUS_IMPORT_SKYPACK = s(:import,
         [s(:pair, s(:sym, :as), s(:const, nil, :Stimulus)),
           s(:pair, s(:sym, :from), s(:str, "https://cdn.skypack.dev/@hotwired/stimulus"))],
-          s(:str, '*'))
+        s(:str, '*'))
 
       def initialize(*args)
         super
@@ -82,7 +82,7 @@ module Ruby2JS
 
           if values == nil
             nodes.unshift s(:send, s(:self), :values=, s(:hash,
-            *@stim_values.map {|name| s(:pair, name, s(:const, nil, :String))}))
+              *@stim_values.map {|name| s(:pair, name, s(:const, nil, :String))}))
           elsif nodes[values].children[2].type == :hash
             stim_values = @stim_values.map {|name| 
               [s(:sym, name.children.first.to_sym), s(:const, nil, :String)]
@@ -92,7 +92,7 @@ module Ruby2JS
 
             nodes[values] = nodes[values].updated(nil,
               [*nodes[values].children[0..1], s(:hash,
-              *stim_values.map {|name, value| s(:pair, name, value)})])
+                *stim_values.map {|name, value| s(:pair, name, value)})])
           end
         end
 

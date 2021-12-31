@@ -240,7 +240,7 @@ module Ruby2JS
                   # simple case: all statements are ivar assignments
                   pairs = block.children.map do |child|
                     s(:pair, s(:sym, child.children[0].to_s[1..-1]),
-                     process(child.children[1]))
+                      process(child.children[1]))
                   end
 
                   pairs += uninitialized.map do |symbol|
@@ -256,7 +256,7 @@ module Ruby2JS
                   block = s(:begin, s(:gvasgn, :$_,
                     s(:hash, *uninitialized.map {|sym|
                       s(:pair, s(:sym, sym.to_s[1..-1]),
-                      s(:attr, nil, :undefined))})),
+                        s(:attr, nil, :undefined))})),
                     block, s(:return, s(:gvar, :$_)))
                   @vue_self = s(:gvar, :$_)
                 end
@@ -357,12 +357,12 @@ module Ruby2JS
             # build component
             defn = s(:casgn, nil, cname,
               s(:send, s(:const, nil, :Vue), :component,
-              s(:str, camel), s(:hash, *hash)))
+                s(:str, camel), s(:hash, *hash)))
           else
             # build app
             defn = s(:casgn, nil, cname,
               s(:send, s(:const, nil, :Vue), :new,
-              s(:hash, *hash)))
+                s(:hash, *hash)))
           end
         else
           # build mixin
@@ -381,7 +381,7 @@ module Ruby2JS
                 # class method
                 s(:send, s(:const, nil, cname), "#{method.children[1]}=",
                   s(:block, s(:send, nil, :proc), method.children[2],
-                   *process_all(method.children[3..-1])))
+                    *process_all(method.children[3..-1])))
               else
                 getter = class_methods.find do |other_method|
                   "#{other_method.children[1]}=" == method.children[1].to_s
@@ -392,23 +392,23 @@ module Ruby2JS
                   s(:send, s(:const, nil, :Object), :defineProperty,
                     s(:const, nil, cname), s(:str, getter.children[1].to_s),
                     s(:hash, s(:pair, s(:sym, :enumerable), s(:true)),
-                    s(:pair, s(:sym, :configurable), s(:true)),
-                    s(:pair, s(:sym, :get), s(:block, s(:send, nil, :proc),
-                      getter.children[2],
-                      s(:autoreturn, process(getter.children[3])))),
-                    s(:pair, s(:sym, :set), s(:block, s(:send, nil, :proc),
-                      method.children[2],
-                      *process_all(method.children[3..-1])))))
+                      s(:pair, s(:sym, :configurable), s(:true)),
+                      s(:pair, s(:sym, :get), s(:block, s(:send, nil, :proc),
+                        getter.children[2],
+                        s(:autoreturn, process(getter.children[3])))),
+                      s(:pair, s(:sym, :set), s(:block, s(:send, nil, :proc),
+                        method.children[2],
+                        *process_all(method.children[3..-1])))))
                 else
                   # setter only
                   s(:send, s(:const, nil, :Object), :defineProperty,
                     s(:const, nil, cname),
                     s(:str, method.children[1].to_s[0..-2]),
                     s(:hash, s(:pair, s(:sym, :enumerable), s(:true)),
-                    s(:pair, s(:sym, :configurable), s(:true)),
-                    s(:pair, s(:sym, :set), s(:block, s(:send, nil, :proc),
-                      method.children[2],
-                      *process_all(method.children[3..-1])))))
+                      s(:pair, s(:sym, :configurable), s(:true)),
+                      s(:pair, s(:sym, :set), s(:block, s(:send, nil, :proc),
+                        method.children[2],
+                        *process_all(method.children[3..-1])))))
                 end
               end
 
@@ -424,10 +424,10 @@ module Ruby2JS
               s(:send, s(:const, nil, :Object), :defineProperty,
                 s(:const, nil, cname), s(:str, method.children[1].to_s),
                 s(:hash, s(:pair, s(:sym, :enumerable), s(:true)),
-                s(:pair, s(:sym, :configurable), s(:true)),
-                s(:pair, s(:sym, :get), s(:block, s(:send, nil, :proc),
-                  method.children[2],
-                  s(:autoreturn, *process_all(method.children[3..-1]))))))
+                  s(:pair, s(:sym, :configurable), s(:true)),
+                  s(:pair, s(:sym, :get), s(:block, s(:send, nil, :proc),
+                    method.children[2],
+                    s(:autoreturn, *process_all(method.children[3..-1]))))))
             end
 
             @comments[fn] = @comments[method]
@@ -811,15 +811,15 @@ module Ruby2JS
                   *process_all(args),
                   s(:send, s(:block, s(:send, nil, :proc),
                     s(:args), s(:begin, *prolog,
-                    s(:return, s(:array, *prefix)))), :[])]
+                      s(:return, s(:array, *prefix)))), :[])]
               else
                 element = node.updated :send, [nil, @vue_h,
                   *process_all(args),
                   s(:send, s(:block, s(:send, nil, :proc),
                     s(:args, s(:shadowarg, :$_)), s(:begin, *prolog,
-                    s(:lvasgn, :$_, s(:array, *prefix)),
-                    *process_all(complex_block),
-                    s(:return, result))), :[])]
+                      s(:lvasgn, :$_, s(:array, *prefix)),
+                      *process_all(complex_block),
+                      s(:return, result))), :[])]
               end
             end
           ensure
@@ -1000,7 +1000,7 @@ module Ruby2JS
             return node.updated :send, [child.children[0], :new,
               s(:hash, s(:pair, s(:sym, :el), process(child.children[2])),
                 s(:pair, s(:sym, :render), s(:block, s(:send, nil, :lambda),
-                s(:args, s(:arg, @vue_h)), process(block))))]
+                  s(:args, s(:arg, @vue_h)), process(block))))]
           ensure
             @vue_h = vue_h
           end
@@ -1029,9 +1029,9 @@ module Ruby2JS
               *child.children[2..-1],
               s(:send, s(:block, s(:send, nil, :proc),
                 s(:args, s(:shadowarg, :$_)), s(:begin,
-                s(:lvasgn, :$_, s(:array)),
-                process(node.children[2]),
-                s(:return, s(:lvar, :$_)))), :[])]
+                  s(:lvasgn, :$_, s(:array)),
+                  process(node.children[2]),
+                  s(:return, s(:lvar, :$_)))), :[])]
           ensure
             @vue_apply = vue_apply
           end
@@ -1065,7 +1065,7 @@ module Ruby2JS
             return super if send.length < 3
             return process s(:block, s(:send, *send[0..1], *send[3..-1]),
               s(:args), s(:block, s(:send, send[2], :forEach),
-              *node.children[1..-1]))
+                *node.children[1..-1]))
           end
 
         elsif \

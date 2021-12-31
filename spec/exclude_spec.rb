@@ -6,7 +6,7 @@ describe 'Ruby2JS::Filter.exclude' do
   
   def to_js( string, options={} )
     _(Ruby2JS.convert(string, 
-     options.merge(filters: [Ruby2JS::Filter::Functions])).to_s)
+      options.merge(filters: [Ruby2JS::Filter::Functions])).to_s)
   end
   
   describe 'default exclude' do

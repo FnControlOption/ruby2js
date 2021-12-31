@@ -68,14 +68,14 @@ module Ruby2JS
                 s(:send, s(:const, nil, :Object), :defineProperty, target, 
                   s(:sym, pair.children.first.children.last),
                   s(:hash, *pair.children.last.map {|name, value| s(:pair,
-                  s(:sym, name), value)}))
+                    s(:sym, name), value)}))
               else
                 pair = modname.children.first
                 s(:send, s(:const, nil, :Object), :defineProperties, target, 
                   s(:hash, *modname.children.map {|pair| s(:pair,
                     s(:sym, pair.children.first.children.last),
                     s(:hash, *pair.children.last.map {|name, value| s(:pair,
-                    s(:sym, name), value)})
+                      s(:sym, name), value)})
                   )}))
               end
 
@@ -87,7 +87,7 @@ module Ruby2JS
                   s(:send, s(:const, nil, :Object), :defineProperty, target, 
                     s(:sym, pair.children.first.children.last),
                     s(:hash, *pair.children.last.map {|name, value| s(:pair,
-                    s(:sym, name), value)}))
+                      s(:sym, name), value)}))
                 else
                   s(:send, target, :[]=, *pair.children)
                 end
@@ -98,13 +98,13 @@ module Ruby2JS
 
               s(:begin, *modname.children[2..-1].map {|pair|
                   s(:send, target, :[]=, s(:sym, pair.children.first),
-                  pair.updated(:defm, [nil, *pair.children[1..-1]]))
+                    pair.updated(:defm, [nil, *pair.children[1..-1]]))
                 })
 
             elsif modname.type == :lvar and not es2015
               s(:for, s(:lvasgn, :$_), modname,
-              s(:send, target, :[]=,
-              s(:lvar, :$_), s(:send, modname, :[], s(:lvar, :$_))))
+                s(:send, target, :[]=,
+                  s(:lvar, :$_), s(:send, modname, :[], s(:lvar, :$_))))
 
             else
               if es2017

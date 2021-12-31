@@ -133,7 +133,7 @@ module Ruby2JS
 
             S(:send, s(:block, s(:send, nil, :proc), s(:args),
               s(:begin, s(:gvasgn, :$_, create), *init,
-              s(:return, s(:gvar, :$_)))), :[])
+                s(:return, s(:gvar, :$_)))), :[])
           else
             super
           end

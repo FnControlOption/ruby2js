@@ -10,7 +10,7 @@ module Ruby2JS
       extend SEXP
 
       IMPORT_CHILD_PROCESS = s(:import, ['child_process'],
-          s(:attr, nil, :child_process))
+        s(:attr, nil, :child_process))
 
       IMPORT_FS = s(:import, ['fs'], s(:attr, nil, :fs))
 
@@ -19,7 +19,7 @@ module Ruby2JS
       IMPORT_PATH = s(:import, ['path'], s(:attr, nil, :path))
 
       SETUP_ARGV = s(:lvasgn, :ARGV, s(:send, s(:attr, 
-          s(:attr, nil, :process), :argv), :slice, s(:int, 2)))
+        s(:attr, nil, :process), :argv), :slice, s(:int, 2)))
 
       def on_send(node)
         target, method, *args = node.children
@@ -36,12 +36,12 @@ module Ruby2JS
 
             if args.length == 1
               S(:send, s(:attr, nil, :child_process), :execSync,
-              process(args.first),
-              s(:hash, s(:pair, s(:sym, :stdio), s(:str, 'inherit'))))
+                process(args.first),
+                s(:hash, s(:pair, s(:sym, :stdio), s(:str, 'inherit'))))
             else
               S(:send, s(:attr, nil, :child_process), :execFileSync,
-              process(args.first), s(:array, *process_all(args[1..-1])),
-              s(:hash, s(:pair, s(:sym, :stdio), s(:str, 'inherit'))))
+                process(args.first), s(:array, *process_all(args[1..-1])),
+                s(:hash, s(:pair, s(:sym, :stdio), s(:str, 'inherit'))))
             end
 
           elsif \
@@ -238,7 +238,7 @@ module Ruby2JS
             S(:begin, *list[args.first].map {|file|
               S(:send, s(:attr, nil, :fs), :closeSync,
                 s(:send, s(:attr, nil, :fs), :openSync, file,
-                s(:str, "w")))})
+                  s(:str, "w")))})
 
           else
             super

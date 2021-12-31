@@ -218,7 +218,7 @@ module Ruby2JS
                 s(:or, s(:send, process(target), :match, gpattern), s(:array)),
                 :map), s(:args, s(:arg, :s)),
                 s(:return, s(:send, s(:send, s(:lvar, :s), :match, arg),
-                :slice, s(:int, 1))))
+                  :slice, s(:int, 1))))
             end
           else
             # str.match(/.../g)
@@ -280,10 +280,10 @@ module Ruby2JS
 
             if method == :start_with?
               process S(:send, S(:send, target, :substring, s(:int, 0),
-          length), :==, *args)
+                length), :==, *args)
             else
               process S(:send, S(:send, target, :slice,
-          S(:send, length, :-@)), :==, *args)
+                S(:send, length, :-@)), :==, *args)
             end
           end
 
@@ -292,7 +292,7 @@ module Ruby2JS
 
         elsif method == :replace and args.length == 1
           process S(:begin, S(:send, target, :length=, s(:int, 0)),
-             S(:send, target, :push, s(:splat, node.children[2])))
+            S(:send, target, :push, s(:splat, node.children[2])))
 
         elsif method == :include? and args.length == 1
           while target.type == :begin and target.children.length == 1
@@ -433,7 +433,7 @@ module Ruby2JS
           # output: a.splice(0, a.length, *a.reverse)
           process S(:send, target, :splice, s(:int, 0),
             s(:attr, target, :length), s(:splat, S(:send, target,
-            :reverse, *node.children[2..-1])))
+              :reverse, *node.children[2..-1])))
 
         elsif method == :each_with_index
           process S(:send, target, :forEach, *args)
@@ -560,7 +560,7 @@ module Ruby2JS
           else
             process S(:send, nil, :parseInt,
               s(:send, s(:send, s(:const, nil, :Math), :random),
-              :*, args.first))
+                :*, args.first))
           end
 
         elsif method == :sum and args.length == 0
@@ -652,7 +652,7 @@ module Ruby2JS
           process call.updated(:send, [target, :splice, s(:splat, s(:send,
             s(:array, s(:int, 0), s(:attr, target, :length)), :concat,
             s(:block, s(:send, target, method, *call.children[2..-1]),
-            *node.children[1..-1])))])
+              *node.children[1..-1])))])
 
         elsif node.children[0..1] == [s(:send, nil, :loop), s(:args)]
           # input: loop {statements}
@@ -753,16 +753,16 @@ module Ruby2JS
           if es2017
             # Object.entries(a).forEach(([key, value]) => {})
             process node.updated(nil, [s(:send, s(:send,
-            s(:const, nil, :Object), :entries, call.children[0]), :each),
+              s(:const, nil, :Object), :entries, call.children[0]), :each),
             node.children[1], node.children[2]])
           else
             # for (key in a). {var value = a[key]; ...}
             process node.updated(:for, [s(:lvasgn,
               node.children[1].children[0].children[0]), call.children[0],
               s(:begin, s(:lvasgn, node.children[1].children[1].children[0],
-              s(:send, call.children[0], :[], 
-              s(:lvar, node.children[1].children[0].children[0]))),
-              node.children[2])])
+                s(:send, call.children[0], :[], 
+                  s(:lvar, node.children[1].children[0].children[0]))),
+                node.children[2])])
           end
 
         elsif method == :scan and call.children.length == 3
@@ -777,7 +777,7 @@ module Ruby2JS
         elsif method == :tap and call.children.length == 2
           process node.updated(:send, [s(:block, s(:send, nil, :proc),
             node.children[1], s(:begin, node.children[2],
-            s(:return, s(:lvar, node.children[1].children[0].children[0])))),
+              s(:return, s(:lvar, node.children[1].children[0].children[0])))),
             :[], call.children[0]])
 
         elsif method == :define_method and call.children.length == 3
@@ -806,9 +806,9 @@ module Ruby2JS
           then
             body.unshift s(:def, :initialize, s(:args, s(:arg, :message)),
               s(:begin, s(:send, s(:self), :message=, s(:lvar, :message)),
-              s(:send, s(:self), :name=, s(:sym, name.children[1])),
-              s(:send, s(:self), :stack=, s(:attr, s(:send, nil, :Error,
-              s(:lvar, :message)), :stack))))
+                s(:send, s(:self), :name=, s(:sym, name.children[1])),
+                s(:send, s(:self), :stack=, s(:attr, s(:send, nil, :Error,
+                  s(:lvar, :message)), :stack))))
           end
 
           body = [s(:begin, *body)] if body.length > 1

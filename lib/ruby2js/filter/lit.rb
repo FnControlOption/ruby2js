@@ -61,11 +61,11 @@ module Ruby2JS
             if es2022
               nodes.unshift process(s(:casgn, nil, :properties, 
                 s(:hash, *@le_props.map {|name, type| s(:pair, s(:sym, name.to_s[1..-1]), 
-                s(:hash, s(:pair, s(:sym, :type), s(:const, nil, type || :String))))})))
+                  s(:hash, s(:pair, s(:sym, :type), s(:const, nil, type || :String))))})))
             else
               nodes.unshift process(s(:defp, s(:self), :properties, s(:args), s(:return, 
                 s(:hash, *@le_props.map {|name, type| s(:pair, s(:sym, name.to_s[1..-1]), 
-                s(:hash, s(:pair, s(:sym, :type), s(:const, nil, type || :String))))}))))
+                  s(:hash, s(:pair, s(:sym, :type), s(:const, nil, type || :String))))}))))
             end
           elsif nodes[values].children.last.type == :hash
             le_props = @le_props.map {|name, type| 
@@ -77,7 +77,7 @@ module Ruby2JS
 
             nodes[values] = nodes[values].updated(nil,
               [*nodes[values].children[0..-2], s(:hash,
-              *le_props.map {|name, value| s(:pair, name, value)})])
+                *le_props.map {|name, value| s(:pair, name, value)})])
           end
         end
 
@@ -124,12 +124,12 @@ module Ruby2JS
           if es2022
             nodes[styles] = nodes[styles].updated(:casgn,
               [nil, :styles, s(:taglit, s(:sym, :css),
-              s(:dstr, *children))])
+                s(:dstr, *children))])
           else
             nodes[styles] = nodes[styles].updated(:defp,
               [s(:self), :styles, s(:args),
               s(:autoreturn, s(:taglit, s(:sym, :css),
-              s(:dstr, *children)))])
+                s(:dstr, *children)))])
           end
         end
 
@@ -146,8 +146,8 @@ module Ruby2JS
 
           unless statements.any? {|statement| %i[super zuper].include? statement.type}
             nodes[initialize] = nodes[initialize].updated(nil,
-            [*nodes[initialize].children[0..1],
-            s(:begin, s(:zsuper), *statements)])
+              [*nodes[initialize].children[0..1],
+              s(:begin, s(:zsuper), *statements)])
           end
         end
 

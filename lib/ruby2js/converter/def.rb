@@ -48,7 +48,7 @@ module Ruby2JS
           blk = args.children[-1].children.first
           vararg = args.children[-2].children.first
           last = s(:send, s(:attr, s(:lvar, :arguments), :length), :-,
-                  s(:int, 1))
+            s(:int, 1))
 
           # set block argument to the last argument passed
           assign2 = s(:lvasgn, blk, s(:send, s(:lvar, :arguments), :[], last))
@@ -61,18 +61,18 @@ module Ruby2JS
             # push block argument back onto args if not a function
             pushback = s(:if, s(:send, s(:send, nil, :typeof, s(:lvar, blk)), 
               :"!==", s(:str, "function")), s(:begin, s(:send, s(:lvar,
-              vararg), :push, s(:lvar, blk)), s(:lvasgn, blk, s(:nil))), nil)
+                vararg), :push, s(:lvar, blk)), s(:lvasgn, blk, s(:nil))), nil)
             # set block argument to null if all arguments were defined
             pushback = s(:if, s(:send, s(:attr, s(:lvar, :arguments),
               :length), :<=, s(:int, args.children.length - 2)), s(:lvasgn, 
-              blk, s(:nil)), pushback)
+                blk, s(:nil)), pushback)
             # combine statements
             body = s(:begin, assign1, assign2, pushback, *body.children)
           else
             # set block argument to null if all arguments were defined
             ignore = s(:if, s(:send, s(:attr, s(:lvar, :arguments),
               :length), :<=, s(:int, args.children.length - 2)), s(:lvasgn, 
-              blk, s(:nil)), nil)
+                blk, s(:nil)), nil)
             body = s(:begin, assign2, ignore, *body.children)
           end
 
